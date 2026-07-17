@@ -23,45 +23,48 @@
   /* ---- FONTS ---- */
   --text-display-lg: 56px;
   --text-headline-lg: 40px;
-  --text-title-md: 27px;
+  --text-title-md: 30px;
   --text-body-md: 14px;
   --text-label-sm: 11px;
+
+  --shadow-main: 0px 24px 48px 0px #041b3c0f;
 }
 
 @layer {
   .display-lg {
     @apply font-bold text-display-lg;
   }
-
+  .display-lg,
+  .text-headline-lg,
+  .text-title-md {
+    @apply font-semibold text-neutral-900;
+  }
   .body-md {
     @apply text-body-md text-[#434654];
   }
 
-  .btn {
-    @apply h-[20px] w-[100px];
-  }
-
   .btn-primary {
-    @apply bg-btn text-white btn;
+    @apply bg-btn text-white;
   }
 
   .btn-secondary {
-    @apply text-btn  btn;
+    @apply text-btn;
+  }
+
+  .label-sm {
+    @apply uppercase font-bold text-label-sm text-neutral-600;
   }
 
   .btn-disabled {
-    @apply text-neutral-600 btn;
+    @apply text-neutral-600;
   }
 
-  .inp {
-    @apply h-[44px] w-full;
-  }
   .inp-normal {
-    @apply inp placeholder:text-placeholder-normal text-[#737685];
+    @apply w-full placeholder:text-placeholder-normal bg-surface-highest placeholder:text-[16px] px-4 py-3.5 outline-primary;
   }
 
-  .inp-err {
-    @apply inp placeholder:text-placeholder-error text-error;
+  .inp-error {
+    @apply w-full placeholder:text-placeholder-error bg-[#ffdad6]  placeholder:text-[16px] px-4 py-3.5 outline-error;
   }
 
   .flex-center {
@@ -72,4 +75,5 @@
 body {
   @apply bg-background;
   font-family: 'Inter', sans-serif;
+  min-height: 100dvh;
 }

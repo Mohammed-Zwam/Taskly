@@ -1,0 +1,16 @@
+<div>
+  <label class="label-sm mx-1">{{ label }}</label>
+  <br />
+  <input
+    [class.inp-normal]="inputControl.valid || !inputControl.touched"
+    [class.inp-error]="inputControl.invalid && inputControl.touched"
+    class="my-1 rounded-[4px]"
+    [placeholder]="placeholder"
+    [type]="type"
+    [name]="name"
+    [formControl]="inputControl"
+  />
+  @if (note.length > 0) {
+    <small class="text-neutral-300 font-normal text-[11px] mx-1">{{ note }}</small>
+  }
+</div>

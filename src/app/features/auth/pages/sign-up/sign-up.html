@@ -1,0 +1,75 @@
+<div class="p-12 bg-white rounded-[8px] max-w-[576px] box-content shadow-main w-full">
+  <div class="mb-10">
+    <h1 class="text-center text-title-md text-neutral-900">Create your workspace</h1>
+    <p class="text-center text-neutral-600">Join the editorial approach to task management.</p>
+  </div>
+
+  <form class="flex gap-6 flex-col" [formGroup]="signupFormData" (ngSubmit)="onSubmit()">
+    <app-input-field
+      placeholder="Enter your full name"
+      label="full name"
+      note="3-50 characters, letters only."
+      type="text"
+      name="full-name"
+      [inputControl]="name"
+    ></app-input-field>
+
+    <app-input-field
+      placeholder="yourname@company.com"
+      label="email"
+      type="email"
+      name="email"
+      [inputControl]="email"
+    ></app-input-field>
+
+    <app-input-field
+      placeholder="e.g. Project Manager"
+      label="job title (optional)"
+      type="email"
+      name="jobTitle"
+      [inputControl]="jobTitle"
+    ></app-input-field>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <app-input-field
+        placeholder="Password"
+        label="password"
+        type="password"
+        name="password"
+        [inputControl]="password"
+      ></app-input-field>
+
+      <app-input-field
+        placeholder="Repeat your password"
+        label="confirm password"
+        type="password"
+        name="confirm-password"
+        [inputControl]="confirmPassword"
+      ></app-input-field>
+    </div>
+
+    <div class="bg-surface-highest p-4 rounded-[8px] flex flex-col gap-[7.5px]">
+      @for (rule of passwordRules; track $index) {
+        <p class="flex-center w-fit gap-2">
+          @if (rule.isValid) {
+            <img src="images/checked.svg" alt="checked" class="w-4 h-4" />
+          } @else {
+            <img src="images/unchecked.svg" alt="unchecked" class="w-4 h-4" />
+          }
+          <span class="text-neutral-600 text-label-sm">{{ rule.name }}</span>
+        </p>
+      }
+    </div>
+
+    <button
+      type="submit"
+      class="btn-primary cursor-pointer rounded-[4px] w-full h-[48px] flex-center"
+    >
+      Create Account
+    </button>
+
+    <p class="text-neutral-600 text-center mt-8">
+      Already have an account? <a class="text-primary font-semibold" routerLink="/login">Log in</a>
+    </p>
+  </form>
+</div>
