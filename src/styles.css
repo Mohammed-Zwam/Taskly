@@ -1,3 +1,75 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import 'tailwindcss';
+
+@theme {
+  /* ---- COLORS ---- */
+
+  --color-primary: #003d9b;
+  --color-primary-container: #0052cc;
+  --color-surface-highest: #d7e2ff;
+  --color-background: #f9f9ff;
+
+  --color-neutral-900: #041b3c;
+  --color-neutral-600: #4f5f7b;
+  --color-neutral-300: #c3c6d6;
+
+  --color-success: #82f9be;
+  --color-error: #ba1a1a;
+  --color-warning: #ffb300;
+  --color-placeholder-error: #93000a;
+  --color-placeholder-normal: #6b7280;
+
+  --color-btn: #0148b5;
+
+  /* ---- FONTS ---- */
+  --text-display-lg: 56px;
+  --text-headline-lg: 40px;
+  --text-title-md: 27px;
+  --text-body-md: 14px;
+  --text-label-sm: 11px;
+}
+
+@layer {
+  .display-lg {
+    @apply font-bold text-display-lg;
+  }
+
+  .body-md {
+    @apply text-body-md text-[#434654];
+  }
+
+  .btn {
+    @apply h-[20px] w-[100px];
+  }
+
+  .btn-primary {
+    @apply bg-btn text-white btn;
+  }
+
+  .btn-secondary {
+    @apply text-btn  btn;
+  }
+
+  .btn-disabled {
+    @apply text-neutral-600 btn;
+  }
+
+  .inp {
+    @apply h-[44px] w-full;
+  }
+  .inp-normal {
+    @apply inp placeholder:text-placeholder-normal text-[#737685];
+  }
+
+  .inp-err {
+    @apply inp placeholder:text-placeholder-error text-error;
+  }
+
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+}
+
+body {
+  @apply bg-background;
+  font-family: 'Inter', sans-serif;
+}
