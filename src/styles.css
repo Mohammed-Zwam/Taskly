@@ -60,15 +60,27 @@
   }
 
   .inp-normal {
-    @apply w-full placeholder:text-placeholder-normal bg-surface-highest placeholder:text-[16px] px-4 py-3.5 outline-primary;
+    @apply w-full placeholder:text-placeholder-normal bg-surface-highest placeholder:text-[16px] px-4 py-3.5 focus-within:outline-2 focus-within:!outline-primary;
   }
 
   .inp-error {
-    @apply w-full placeholder:text-placeholder-error bg-[#ffdad6]  placeholder:text-[16px] px-4 py-3.5 outline-error;
+    @apply w-full placeholder:text-placeholder-error bg-[#ffdad6]  placeholder:text-[16px] px-4 py-3.5 focus-within:outline-2 focus-within:!outline-error;
   }
 
   .flex-center {
     @apply flex items-center justify-center;
+  }
+
+  .show {
+    @apply top-4 opacity-100;
+  }
+
+  .hide {
+    @apply top-[-50px] opacity-0;
+  }
+
+  .err-message {
+    @apply text-error text-[14px] mx-1;
   }
 }
 
@@ -76,4 +88,16 @@ body {
   @apply bg-background;
   font-family: 'Inter', sans-serif;
   min-height: 100dvh;
+  position: relative;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: #0f172a; /* text color */
+  -webkit-box-shadow: 0 0 0px 1000px #b7caff inset;
+  box-shadow: 0 0 0px 1000px #b7caff inset;
+  transition: background-color 9999s ease-in-out 0s;
 }
