@@ -1,16 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { InputField } from "../../components/input-field/input-field";
 import { RouterLink } from "@angular/router";
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ToastService } from '../../../../shared/services/toast.service';
+import { ErrorMessage } from "../../../../shared/components/error-message/error-message";
+import { BtnLoading } from "../../../../shared/components/btn-loading/btn-loading";
+import { LoadingService } from '../../../../shared/services/loading.service';
+import { AuthService } from '../../services/auth.service';
+import { SignupDTO } from '../../model/auth.model';
+import { error } from 'console';
 
 @Component({
   selector: 'app-sign-up',
-  imports: [InputField, RouterLink, ReactiveFormsModule],
+  imports: [InputField, RouterLink, ReactiveFormsModule, ErrorMessage, BtnLoading],
   templateUrl: './sign-up.html',
   styleUrl: './sign-up.css',
 })
 export class SignUp {
-  name: FormControl = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]);
+
+  constructor(private toastService: ToastService, private authService: AuthService) { }
+  loadingService: LoadingService = inject(LoadingService);
+
+  name: FormControl = new FormControl('',
+    [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(50),
+      this.validateName
+    ]
+  );
   email: FormControl = new FormControl('', [Validators.required, Validators.email]);
   jobTitle: FormControl = new FormControl('', [Validators.maxLength(50)]);
   password: FormControl = new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(64), this.validatePassword]);
@@ -46,12 +64,17 @@ export class SignUp {
       }
     ]
   }
-
-
+  validateName(control: AbstractControl) {
+    const value = control.value;
+    if (!(/^\p{L}+(?:\s+\p{L}+)*$/u.test(value)))
+      return {
+        invalidNamePattern: true
+      }
+    return null;
+  }
 
   validatePassword(control: AbstractControl) {
     const value = control.value;
-
 
     const errors: any = {};
 
@@ -83,6 +106,36 @@ export class SignUp {
   }
 
   onSubmit() {
-    console.log(this.signupFormData.value)
+    if (this.signupFormData.invalid) {
+      this.toastService.show('error', 'Invalid Inputs', 'Please fill in all fields correctly');
+      this.signupFormData.markAllAsTouched();
+      this.signupFormData.markAllAsDirty();
+      return;
+    }
+    const signupDTO: SignupDTO = {
+      email: this.email.value,
+      password: this.password.value,
+      data: {
+        name: this.name.value,
+        department: this.jobTitle.value,
+      }
+    };
+
+    this.loadingService.load();
+    this.authService.signup(signupDTO).subscribe({
+      next: () => {
+        this.toastService.show('success', 'Account Created Successfully', 'Welcome, ' + this.name.value + ' !');
+        // TODO: Redirect to project page (main page)
+      },
+      error: (res) => {
+        console.log(res)
+        this.toastService.show('error', 'Account Creation Failed', res.error.msg);
+        this.loadingService.stop();
+      },
+      complete: () => {
+        this.loadingService.stop();
+      }
+    })
+
   }
 }

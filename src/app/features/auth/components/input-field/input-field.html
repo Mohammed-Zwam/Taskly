@@ -1,9 +1,13 @@
 <div>
-  <label class="label-sm mx-1">{{ label }}</label>
+  <label
+    class="label-sm mx-1"
+    [class.!text-error]="inputControl.invalid && inputControl.touched && inputControl.dirty"
+    >{{ label }}</label
+  >
   <br />
   <input
-    [class.inp-normal]="inputControl.valid || !inputControl.touched"
-    [class.inp-error]="inputControl.invalid && inputControl.touched"
+    [class.inp-normal]="inputControl.valid || !inputControl.touched || !inputControl.dirty"
+    [class.inp-error]="inputControl.invalid && inputControl.touched && inputControl.dirty"
     class="my-1 rounded-[4px]"
     [placeholder]="placeholder"
     [type]="type"
@@ -12,5 +16,31 @@
   />
   @if (note.length > 0) {
     <small class="text-neutral-300 font-normal text-[11px] mx-1">{{ note }}</small>
+  }
+
+  @if (inputControl.invalid && inputControl.touched && inputControl.dirty) {
+    @if (inputControl.hasError('required')) {
+      <app-error-message errorMessage="This field is required." />
+    }
+
+    @if (inputControl.hasError('email')) {
+      <app-error-message errorMessage="Invalid email address." />
+    }
+
+    @if (inputControl.hasError('minlength')) {
+      <app-error-message
+        [errorMessage]="`Minimum length is ${inputControl.getError('minlength').requiredLength}`"
+      />
+    }
+
+    @if (inputControl.hasError('maxlength')) {
+      <app-error-message
+        [errorMessage]="`Maximum length is ${inputControl.getError('maxlength').requiredLength}`"
+      />
+    } @else if (inputControl.hasError('invalidNamePattern')) {
+      <app-error-message
+        errorMessage="Only letters, spaces between words, apostrophes (') and hyphens (-) are allowed."
+      />
+    }
   }
 </div>

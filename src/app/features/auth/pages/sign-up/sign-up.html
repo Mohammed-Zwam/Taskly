@@ -1,7 +1,13 @@
-<div class="p-12 bg-white rounded-[8px] max-w-[576px] box-content shadow-main w-full">
+<div
+  class="sm:p-12 sm:shadow-main sm:bg-white rounded-[8px] w-[100%] sm:w-[576px] md:w-[672px] w-full mt-12"
+>
   <div class="mb-10">
-    <h1 class="text-center text-title-md text-neutral-900">Create your workspace</h1>
-    <p class="text-center text-neutral-600">Join the editorial approach to task management.</p>
+    <h1 class="text-[28px] sm:text-center sm:text-title-md font-semibold text-neutral-900">
+      Create your workspace
+    </h1>
+    <p class="text-[14px] sm:text-center text-neutral-600">
+      Join the editorial approach to task management.
+    </p>
   </div>
 
   <form class="flex gap-6 flex-col" [formGroup]="signupFormData" (ngSubmit)="onSubmit()">
@@ -47,6 +53,9 @@
         [inputControl]="confirmPassword"
       ></app-input-field>
     </div>
+    @if (confirmPassword.touched && password.valid && signupFormData.hasError('mismatch')) {
+      <app-error-message errorMessage="Passwords do not match" />
+    }
 
     <div class="bg-surface-highest p-4 rounded-[8px] flex flex-col gap-[7.5px]">
       @for (rule of passwordRules; track $index) {
@@ -63,9 +72,15 @@
 
     <button
       type="submit"
-      class="btn-primary cursor-pointer rounded-[4px] w-full h-[48px] flex-center"
+      class="btn-primary cursor-pointer rounded-[4px] w-full h-[48px] flex-center gap-3"
+      [class.opacity-70]="loadingService.isLoading()"
+      [disabled]="loadingService.isLoading()"
     >
       Create Account
+
+      @if (loadingService.isLoading()) {
+        <app-btn-loading />
+      }
     </button>
 
     <p class="text-neutral-600 text-center mt-8">
