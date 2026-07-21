@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
 import { ErrorMessage } from "../../../../shared/components/error-message/error-message";
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-input-field',
-  imports: [ReactiveFormsModule, ErrorMessage],
+  imports: [ReactiveFormsModule, ErrorMessage, NgClass],
   templateUrl: './input-field.html',
 })
 export class InputField {
@@ -14,6 +15,6 @@ export class InputField {
   @Input() type!: string;
   @Input() name!: string;
   @Input() inputControl!: FormControl;
-
+  isVisible: boolean = false; // for password inputs
 
 }

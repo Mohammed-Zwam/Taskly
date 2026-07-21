@@ -1,5 +1,5 @@
 <div
-  class="sm:p-12 sm:shadow-main sm:bg-white rounded-[8px] w-[100%] sm:w-[576px] md:w-[672px] w-full mt-12"
+  class="sm:p-12 m-auto sm:shadow-main sm:bg-white rounded-[8px] w-[100%] sm:w-[576px] md:w-[672px] w-full mt-12"
 >
   <div class="mb-10">
     <h1 class="text-[28px] sm:text-center sm:text-title-md font-semibold text-neutral-900">
@@ -59,14 +59,25 @@
 
     <div class="bg-surface-highest p-4 rounded-[8px] flex flex-col gap-[7.5px]">
       @for (rule of passwordRules; track $index) {
-        <p class="flex-center w-fit gap-2">
+        <div class="flex-center w-fit gap-2">
           @if (rule.isValid) {
-            <img src="images/checked.svg" alt="checked" class="w-4 h-4" />
+            <div class="w-4 h-4 border-2 border-green-800 rounded-full flex-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 22 22"
+                stroke-width="4"
+                stroke="green"
+                class="w-[9px]"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+              </svg>
+            </div>
           } @else {
-            <img src="images/unchecked.svg" alt="unchecked" class="w-4 h-4" />
+            <div class="w-4 h-4 border-2 border-[#787c8c] rounded-full"></div>
           }
           <span class="text-neutral-600 text-label-sm">{{ rule.name }}</span>
-        </p>
+        </div>
       }
     </div>
 

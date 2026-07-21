@@ -1,0 +1,14 @@
+<nav>
+  <div class="logo">
+    <img src="images/logo.svg" alt="logo" class="h-7" />
+  </div>
+
+  <ul>
+    @for (linkItem of navbarLinks; track $index) {
+      <li>
+        <span>{{ linkItem.icon }}</span>
+        <a routerLink="{{ linkItem.path }}">{{ linkItem.name }}</a>
+      </li>
+    }
+  </ul>
+</nav>
