@@ -16,7 +16,7 @@
   --color-error: #ba1a1a;
   --color-warning: #ffb300;
   --color-placeholder-error: #93000a;
-  --color-placeholder-normal: #6b7280;
+  --color-placeholder-normal: #6b7#041B3C80;
 
   --color-btn: #0148b5;
 
@@ -28,8 +28,28 @@
   --text-label-sm: 11px;
 
   --shadow-main: 0px 24px 48px 0px #041b3c0f;
+
+  --animate-fadeIn: fadeIn 0.3s ease-in-out;
+  --animate-fadeOut: fadeOut 0.3s ease-in-out;
 }
 
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 @layer {
   .display-lg {
     @apply font-bold text-display-lg;
@@ -100,4 +120,22 @@ select:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px #b7caff inset;
   box-shadow: 0 0 0px 1000px #b7caff inset;
   transition: background-color 9999s ease-in-out 0s;
+}
+
+.hide-lnk-txt {
+  opacity: 0 !important;
+  cursor: pointer !important;
+  pointer-events: none !important;
+}
+
+@media (width < 640px) {
+  .hide-lnk-txt {
+    opacity: 1 !important;
+    cursor: pointer;
+    pointer-events: auto;
+  }
+}
+
+.show {
+  opacity: 1;
 }

@@ -16,5 +16,4 @@ export class InputField {
   @Input() name!: string;
   @Input() inputControl!: FormControl;
   isVisible: boolean = false; // for password inputs
-
 }
