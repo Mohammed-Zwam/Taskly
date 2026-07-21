@@ -5,7 +5,6 @@ import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validator
 import { ToastService } from '../../../../core/services/toast.service';
 import { ErrorMessage } from "../../../../shared/components/error-message/error-message";
 import { BtnLoading } from "../../../../shared/components/btn-loading/btn-loading";
-import { LoadingService } from '../../../../core/services/loading.service';
 import { AuthService } from '../../services/auth.service';
 import { SignupRequest } from '../../model/auth.model';
 import { finalize } from 'rxjs';
@@ -18,8 +17,9 @@ import { finalize } from 'rxjs';
 })
 export class SignUp {
 
-  constructor(private toastService: ToastService, private authService: AuthService, private router: Router) { }
-  loadingService: LoadingService = inject(LoadingService);
+  constructor(private authService: AuthService, private router: Router) { }
+  toastService = inject(ToastService);
+  isLoading: boolean = false;
 
   name: FormControl = new FormControl('',
     [
@@ -121,10 +121,10 @@ export class SignUp {
       }
     };
 
-    this.loadingService.load();
+    this.isLoading = true;
     this.authService.signup(signupRequest)
       .pipe(
-        finalize(() => this.loadingService.stop())
+        finalize(() => this.isLoading = false)
       )
       .subscribe({
         next: () => {

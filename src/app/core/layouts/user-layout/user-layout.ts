@@ -15,18 +15,19 @@ export class UserLayout {
     const user: User | any = sessionService.getUser();
     if (user != null) {
       this.userName = user.name;
-      this.userTitle = user.title;
+      this.userTitle = user.department;
       const userNames = user.name.split(' ');
-      this.avatar = userNames[0] + userNames[1];
+      console.log(userNames)
+      this.avatar = userNames[0][0] + userNames[1][0];
     }
   }
-  userName: string = "Zwam Rafiq";
-  userTitle: string = "Front-end Developer";
-  avatar: string = "zr";
+  userName: string = "Rafiq User";
+  userTitle: string = "Rafiq Developer";
+  avatar: string = "ru";
   isSideAppear = false;
 
   @HostListener('window:resize')
   onResize() {
-    if(window.innerWidth >= 640) this.isSideAppear = false;
+    if (window.innerWidth >= 640) this.isSideAppear = false;
   }
 }

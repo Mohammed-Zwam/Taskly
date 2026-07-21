@@ -16,7 +16,7 @@
   --color-error: #ba1a1a;
   --color-warning: #ffb300;
   --color-placeholder-error: #93000a;
-  --color-placeholder-normal: #6b7#041B3C80;
+  --color-placeholder-normal: #737685;
 
   --color-btn: #0148b5;
 
@@ -127,6 +127,13 @@ select:-webkit-autofill {
   cursor: pointer !important;
   pointer-events: none !important;
 }
+
+.hide-element {
+  opacity: 0 !important;
+  cursor: pointer !important;
+  pointer-events: none !important;
+}
+
 
 @media (width < 640px) {
   .hide-lnk-txt {

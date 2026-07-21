@@ -3,7 +3,6 @@ import { Component, inject } from '@angular/core';
 import { InputField } from "../../components/input-field/input-field";
 import { BtnLoading } from "../../../../shared/components/btn-loading/btn-loading";
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { LoadingService } from '../../../../core/services/loading.service';
 import { ToastService } from '../../../../core/services/toast.service';
 import { AuthService } from '../../services/auth.service';
 import { Router, RouterLink } from "@angular/router";
@@ -16,9 +15,10 @@ import { finalize } from 'rxjs';
   styleUrl: './login.css',
 })
 export class Login {
-  constructor(private toastService: ToastService, private authService: AuthService) { }
-  loadingService: LoadingService = inject(LoadingService);
+  constructor(private authService: AuthService) { }
   router = inject(Router);
+  toastService = inject(ToastService);
+  isLoading: boolean = false;
 
   email: FormControl = new FormControl('', [Validators.required, Validators.email]);
   password: FormControl = new FormControl('', [Validators.minLength(8), Validators.required, this.validatePassword]);
@@ -52,11 +52,11 @@ export class Login {
       rememberMe: this.rememberMe.value,
     }
 
-    this.loadingService.load();
+    this.isLoading = true;
 
     this.authService.login(loginRequest)
       .pipe(
-        finalize(() => this.loadingService.stop())
+        finalize(() => this.isLoading = false)
       ).subscribe({
         next: (res) => {
           this.toastService.show('success', 'Login Successful', 'Welcome back!');
