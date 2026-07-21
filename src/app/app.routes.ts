@@ -12,5 +12,5 @@ export const routes: Routes = [
         path: '',
         component: AuthLayout,
         children: authRoutes,
-    },
+    }
 ];

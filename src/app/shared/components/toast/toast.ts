@@ -9,9 +9,4 @@ import { ToastService } from '../../services/toast.service';
 })
 export class Toast {
   toastService: ToastService = inject(ToastService);
-
-
-  ngDoCheck() {
-    console.log('Component:', this.toastService.isVisible);
-  }
 }

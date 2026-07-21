@@ -1,14 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { InputField } from "../../components/input-field/input-field";
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastService } from '../../../../shared/services/toast.service';
 import { ErrorMessage } from "../../../../shared/components/error-message/error-message";
 import { BtnLoading } from "../../../../shared/components/btn-loading/btn-loading";
 import { LoadingService } from '../../../../shared/services/loading.service';
 import { AuthService } from '../../services/auth.service';
-import { SignupDTO } from '../../model/auth.model';
-import { error } from 'console';
+import { SignupRequest } from '../../model/auth.model';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-sign-up',
@@ -18,7 +18,7 @@ import { error } from 'console';
 })
 export class SignUp {
 
-  constructor(private toastService: ToastService, private authService: AuthService) { }
+  constructor(private toastService: ToastService, private authService: AuthService, private router: Router) { }
   loadingService: LoadingService = inject(LoadingService);
 
   name: FormControl = new FormControl('',
@@ -112,7 +112,7 @@ export class SignUp {
       this.signupFormData.markAllAsDirty();
       return;
     }
-    const signupDTO: SignupDTO = {
+    const signupRequest: SignupRequest = {
       email: this.email.value,
       password: this.password.value,
       data: {
@@ -122,20 +122,20 @@ export class SignUp {
     };
 
     this.loadingService.load();
-    this.authService.signup(signupDTO).subscribe({
-      next: () => {
-        this.toastService.show('success', 'Account Created Successfully', 'Welcome, ' + this.name.value + ' !');
-        // TODO: Redirect to project page (main page)
-      },
-      error: (res) => {
-        console.log(res)
-        this.toastService.show('error', 'Account Creation Failed', res.error.msg);
-        this.loadingService.stop();
-      },
-      complete: () => {
-        this.loadingService.stop();
-      }
-    })
+    this.authService.signup(signupRequest)
+      .pipe(
+        finalize(() => this.loadingService.stop())
+      )
+      .subscribe({
+        next: () => {
+          this.toastService.show('success', 'Account Created Successfully', 'Welcome, ' + this.name.value + ' !');
+          this.router.navigate(['/projects']);
+        },
+        error: (res) => {
+          console.log(res)
+          this.toastService.show('error', 'Account Creation Failed', res.error.msg);
+        }
+      })
 
   }
 }
