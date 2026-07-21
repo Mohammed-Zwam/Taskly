@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { User } from '../model/auth.model';
 
 @Injectable({
@@ -6,6 +6,9 @@ import { User } from '../model/auth.model';
 })
 export class SessionService {
   user = signal<User | null>(null);
+
+  readonly isAuthenticated = computed(() => this.user() !== null);
+
   setUser(user: User) {
     this.user.set(user);
   }

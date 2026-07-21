@@ -3,8 +3,8 @@ import { Component, inject } from '@angular/core';
 import { InputField } from "../../components/input-field/input-field";
 import { BtnLoading } from "../../../../shared/components/btn-loading/btn-loading";
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { LoadingService } from '../../../../shared/services/loading.service';
-import { ToastService } from '../../../../shared/services/toast.service';
+import { LoadingService } from '../../../../core/services/loading.service';
+import { ToastService } from '../../../../core/services/toast.service';
 import { AuthService } from '../../services/auth.service';
 import { Router, RouterLink } from "@angular/router";
 import { finalize } from 'rxjs';
@@ -60,7 +60,7 @@ export class Login {
       ).subscribe({
         next: (res) => {
           this.toastService.show('success', 'Login Successful', 'Welcome back!');
-          this.router.navigate(['/project']);
+          this.router.navigate(['/projects']);
         },
         error: (res) => {
           this.toastService.show('error', 'Login Failed', res.error.msg);
