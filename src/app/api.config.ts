@@ -4,4 +4,6 @@ export const API = {
     SIGNUP: '/auth/v1/signup',
     LOGIN: '/auth/v1/token?grant_type=password',
     ONE_MONTH: 2592000,
+    REFRESH_TOKEN: '/auth/v1/token?grant_type=refresh_token',
+    LOGOUT: '/auth/v1/logout',
 };

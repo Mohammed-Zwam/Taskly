@@ -1,0 +1,83 @@
+.loader {
+  position: relative;
+  width: 170px;
+  height: 100px;
+  margin: 50px auto;
+}
+
+.loader div {
+  position: absolute;
+  top: 50%;
+  width: 10px;
+  height: 30px;
+  background-color: blue;
+  border-radius: 3px;
+
+  transform: translateY(-50%) scaleY(1);
+  transform-origin: center;
+
+  animation: loader 1.5s ease-in-out infinite;
+}
+
+.loader .bar1 {
+  left: 0;
+  animation-delay: 0s;
+}
+.loader .bar2 {
+  left: 20px;
+  animation-delay: 0.05s;
+}
+.loader .bar3 {
+  left: 40px;
+  animation-delay: 0.15s;
+}
+.loader .bar4 {
+  left: 60px;
+  animation-delay: 0.2s;
+}
+.loader .bar5 {
+  left: 80px;
+  animation-delay: 0.3s;
+}
+.loader .bar6 {
+  left: 100px;
+  animation-delay: 0.4s;
+}
+.loader .bar7 {
+  left: 120px;
+  animation-delay: 0.45s;
+}
+.loader .bar8 {
+  left: 140px;
+  animation-delay: .6s;
+}
+.loader .bar9 {
+  left: 160px;
+  animation-delay: .9s;
+}
+
+@keyframes loader {
+  0% {
+    transform: translateY(-50%) scaleY(1);
+  }
+
+  50% {
+    transform: translateY(-50%) scaleY(2.3);
+  }
+
+  100% {
+    transform: translateY(-50%) scaleY(1);
+  }
+}
+.loader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: #f1f3ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}

@@ -1,7 +1,9 @@
 import { NgClass } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { RouterLink, RouterLinkActive } from "@angular/router";
+import { Router, RouterLink, RouterLinkActive } from "@angular/router";
+import { AuthService } from '../../../features/auth/services/auth.service';
+import { ToastService } from '../../../core/services/toast.service';
 
 @Component({
   selector: 'app-side-navbar',
@@ -9,7 +11,12 @@ import { RouterLink, RouterLinkActive } from "@angular/router";
   templateUrl: './side-navbar.html',
 })
 export class SideNavbar {
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor(private sanitizer: DomSanitizer,
+    private authService: AuthService,
+    private router: Router,
+    private toastService: ToastService
+
+  ) { }
   isCollapsed = false;
   @Input() isSideAppear !: boolean;
 
@@ -68,7 +75,11 @@ export class SideNavbar {
     }
   ];
 
-
+  logout() {
+    this.authService.logout();
+    this.toastService.show('success', 'Logout successful', 'See you again!');
+    this.router.navigate(['/login']);
+  }
 
   getIcon(icon: string): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(icon);

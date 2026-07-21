@@ -1,5 +1,6 @@
 <div
   class="p-6 min-h-[100dvh] before:content-[''] before:w-[256px] before:h-[256px] before:rounded-full before:bg-[#0052CC33] before:filter-[blur(100px)] before:shadow-[0_0_100px_0_#0052CC33] before:fixed before:bottom-0 before:right-0 before:z-[-1] before:opacity-40"
+  [class.hidden]="loadingService.isLoading()"
 >
   <div class="logo">
     <img src="images/logo.svg" alt="logo" class="h-7" />
