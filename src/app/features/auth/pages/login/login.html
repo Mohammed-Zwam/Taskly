@@ -42,12 +42,12 @@
     <button
       type="submit"
       class="btn-primary cursor-pointer rounded-[4px] w-full h-[48px] flex-center gap-3"
-      [class.opacity-70]="isLoading"
-      [disabled]="isLoading"
+      [class.opacity-70]="isLoading()"
+      [disabled]="isLoading()"
     >
       Log In 
 
-      @if (isLoading) {
+      @if (isLoading()) {
         <app-btn-loading />
       }
     </button>

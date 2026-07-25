@@ -11,6 +11,23 @@ export const guestGuard: CanActivateFn = (route, state) => {
   const sessionService = inject(SessionService);
   const loadingService = inject(LoadingService);
 
+  const fragment = route.fragment;
+
+  if (fragment) {
+    const params = new URLSearchParams(fragment);
+
+    const token = params.get('access_token');
+    const type = params.get('type');
+
+    if (type === 'recovery' && token) {
+      return router.createUrlTree(['/reset-password'], {
+        queryParams: {
+          access_token: token,
+        },
+      });
+    }
+  }
+
 
   if (sessionService.isAuthenticated()) {
     return router.createUrlTree(['/projects']);
@@ -20,7 +37,7 @@ export const guestGuard: CanActivateFn = (route, state) => {
   return authService.refreshAccessToken()
     .pipe(
       finalize(() => {
-        setTimeout(() => loadingService.stop(), 300);
+        setTimeout(() => loadingService.stop(), 200);
       }),
       map(() => {
         if (sessionService.isAuthenticated()) {

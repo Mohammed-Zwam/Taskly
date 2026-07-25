@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { InputField } from "../../components/input-field/input-field";
 import { Router, RouterLink } from "@angular/router";
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -8,6 +8,7 @@ import { BtnLoading } from "../../../../shared/components/btn-loading/btn-loadin
 import { AuthService } from '../../services/auth.service';
 import { SignupRequest } from '../../model/auth.model';
 import { finalize } from 'rxjs';
+import { passwordMatchValidator, validatePassword } from '../../../../core/utils/helpers';
 
 @Component({
   selector: 'app-sign-up',
@@ -19,7 +20,7 @@ export class SignUp {
 
   constructor(private authService: AuthService, private router: Router) { }
   toastService = inject(ToastService);
-  isLoading: boolean = false;
+  isLoading = signal(false);
 
   name: FormControl = new FormControl('',
     [
@@ -31,7 +32,7 @@ export class SignUp {
   );
   email: FormControl = new FormControl('', [Validators.required, Validators.email]);
   jobTitle: FormControl = new FormControl('', [Validators.maxLength(50)]);
-  password: FormControl = new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(64), this.validatePassword]);
+  password: FormControl = new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(64), validatePassword]);
   confirmPassword: FormControl = new FormControl('', [Validators.required]);
   signupFormData: FormGroup = new FormGroup(
     {
@@ -42,7 +43,7 @@ export class SignUp {
       confirmPassword: this.confirmPassword,
     },
     {
-      validators: this.passwordMatchValidator,
+      validators: passwordMatchValidator,
     }
   );
 
@@ -64,6 +65,8 @@ export class SignUp {
       }
     ]
   }
+
+
   validateName(control: AbstractControl) {
     const value = control.value;
     if (!(/^\p{L}+(?:\s+\p{L}+)*$/u.test(value)))
@@ -73,37 +76,7 @@ export class SignUp {
     return null;
   }
 
-  validatePassword(control: AbstractControl) {
-    const value = control.value;
 
-    const errors: any = {};
-
-    if (/\s/.test(value))
-      errors.noWhitespace = true;
-
-    if (!/[A-Z]/.test(value))
-      errors.hasUppercase = true;
-
-    if (!/[a-z]/.test(value))
-      errors.hasLowercase = true;
-
-    if (!/\d/.test(value))
-      errors.hasDigit = true;
-
-    if (!/[!@#$%^&*(),.?":{}|<>]/.test(value))
-      errors.hasSpecialCharacter = true;
-
-    return Object.keys(errors).length ? errors : null;
-  }
-
-  passwordMatchValidator(form: AbstractControl) {
-    const pass = form.get('password')?.value;
-    const confirmPass = form.get('confirmPassword')?.value;
-    if (pass !== confirmPass) {
-      return { mismatch: true }
-    }
-    else return null;
-  }
 
   onSubmit() {
     if (this.signupFormData.invalid) {
@@ -121,10 +94,10 @@ export class SignUp {
       }
     };
 
-    this.isLoading = true;
+    this.isLoading.set(true);
     this.authService.signup(signupRequest)
       .pipe(
-        finalize(() => this.isLoading = false)
+        finalize(() => this.isLoading.set(false))
       )
       .subscribe({
         next: () => {

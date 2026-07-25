@@ -27,7 +27,7 @@
   --text-body-md: 14px;
   --text-label-sm: 11px;
 
-  --shadow-main: 0px 24px 48px 0px #041b3c0f;
+  --shadow-main: 0px 24px 48px -12px #041b3c0f;
 
   --animate-fadeIn: fadeIn 0.3s ease-in-out;
   --animate-fadeOut: fadeOut 0.3s ease-in-out;
