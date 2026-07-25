@@ -64,12 +64,8 @@
   }
 
   .btn-primary {
-<<<<<<< Updated upstream
-    @apply bg-btn text-white;
-=======
     @apply text-white cursor-pointer;
     background: linear-gradient(135deg, #003d9b 0%, #0052cc 100%) !important;
->>>>>>> Stashed changes
   }
 
   .btn-secondary {
@@ -138,7 +134,6 @@ select:-webkit-autofill {
   cursor: pointer !important;
   pointer-events: none !important;
 }
-
 
 @media (width < 640px) {
   .hide-lnk-txt {
