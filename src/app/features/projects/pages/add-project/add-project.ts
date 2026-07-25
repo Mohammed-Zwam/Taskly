@@ -2,7 +2,7 @@ import { Component, signal } from '@angular/core';
 import { InputField } from "../../../auth/components/input-field/input-field";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BtnLoading } from "../../../../shared/components/btn-loading/btn-loading";
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { NavList } from "../../../../shared/components/nav-list/nav-list";
 import { ToastService } from '../../../../core/services/toast.service';
 import { ProjectsService } from '../../services/projects.service';
@@ -16,7 +16,7 @@ import { CreateProjectRequest } from '../../model/projects.model';
   styleUrl: './add-project.css',
 })
 export class AddProject {
-  constructor(private toastService: ToastService, private projectsService: ProjectsService) { }
+  constructor(private toastService: ToastService, private projectsService: ProjectsService, private router: Router) { }
   projectTitle: FormControl = new FormControl('', [Validators.minLength(3), Validators.maxLength(100), Validators.required]);
   projectDescription: FormControl = new FormControl('', [Validators.maxLength(500)]);
 
@@ -64,6 +64,7 @@ export class AddProject {
         next: (res) => {
           this.toastService.show('success', 'Project Created', 'Project created successfully');
           this.projectCreationFormData.reset();
+          this.router.navigate(['/projects']);
         },
         error: (err) => {
           this.toastService.show('error', 'Project Creation Failed', err.error.message);

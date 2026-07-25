@@ -16,12 +16,12 @@ export const routes: Routes = [
         path: '',
         component: AuthLayout,
         children: authRoutes,
-        canActivate: [guestGuard],
+        // canActivate: [guestGuard],
     },
     {
         path: 'projects',
         component: UserLayout,
         children: projectsRoutes,
-        canActivate: [authGuard],
+        // canActivate: [authGuard],
     }
 ];
