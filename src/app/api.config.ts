@@ -9,5 +9,4 @@ export const API = {
     FORGET_PASSWORD: '/auth/v1/recover',
     RESET_PASSWORD: '/auth/v1/user',
     CREATE_PROJECT: '/rest/v1/projects',
-    RESET_PASSWORD: '/auth/v1/user'
 };
