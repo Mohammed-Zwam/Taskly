@@ -9,4 +9,5 @@ export const API = {
     FORGET_PASSWORD: '/auth/v1/recover',
     RESET_PASSWORD: '/auth/v1/user',
     CREATE_PROJECT: '/rest/v1/projects',
+    GET_PROJECTS: '/rest/v1/rpc/get_projects'
 };

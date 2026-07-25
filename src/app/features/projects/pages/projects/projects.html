@@ -1,1 +1,247 @@
-<p>projects works!</p>
+@if (state() === 'loading') {
+  <div class="flex flex-col gap-10">
+    <div class="flex items-center justify-between">
+      <div>
+        <h1 class="text-neutral-900 text-[26px] font-semibold">Projects</h1>
+        <p class="text-description text-[16px] font-normal">Manage and curate your projects</p>
+      </div>
+
+      <div class="hidden sm:block skeleton h-[40px] w-[210px]"></div>
+    </div>
+
+    <!-- Project List Loading -->
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+      @for (item of [1, 2, 3, 4, 5, 6]; track $index) {
+        <div class="min-h-[230px] bg-white p-6 flex flex-col justify-between rounded-[8px]">
+          <!-- Project Content -->
+          <div class="flex flex-col gap-4">
+            <div class="skeleton h-[128px]"></div>
+            <div class="skeleton h-[24px] w-[75%]"></div>
+            <div class="skeleton h-[24px] w-[40%]"></div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+} @else if (state() === 'error') {
+  <div class="flex-center flex-col gap-4 h-[70dvh]">
+    <div>
+      <svg
+        width="64"
+        height="64"
+        viewBox="0 0 64 64"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect width="64" height="64" rx="12" fill="#FFDAD6" />
+        <path
+          d="M41.75 44.375L38.4375 41.125H25.125C23.2083 41.125 21.5833 40.4583 20.25 39.125C18.9167 37.7917 18.25 36.1667 18.25 34.25C18.25 32.6458 18.7448 31.2188 19.7344 29.9688C20.724 28.7188 22 27.9167 23.5625 27.5625C23.625 27.3958 23.6875 27.2344 23.75 27.0781C23.8125 26.9219 23.875 26.75 23.9375 26.5625L18.75 21.375L20.5 19.625L43.5 42.625L41.75 44.375ZM25.125 38.625H35.9375L25.875 28.5625C25.8333 28.7917 25.8021 29.0104 25.7812 29.2188C25.7604 29.4271 25.75 29.6458 25.75 29.875H25.125C23.9167 29.875 22.8854 30.3021 22.0312 31.1562C21.1771 32.0104 20.75 33.0417 20.75 34.25C20.75 35.4583 21.1771 36.4896 22.0312 37.3438C22.8854 38.1979 23.9167 38.625 25.125 38.625ZM44 39.5625L42.1875 37.8125C42.5417 37.5208 42.8073 37.1823 42.9844 36.7969C43.1615 36.4115 43.25 35.9792 43.25 35.5C43.25 34.625 42.9479 33.8854 42.3438 33.2812C41.7396 32.6771 41 32.375 40.125 32.375H38.25V29.875C38.25 28.1458 37.6406 26.6719 36.4219 25.4531C35.2031 24.2344 33.7292 23.625 32 23.625C31.4375 23.625 30.8958 23.6927 30.375 23.8281C29.8542 23.9635 29.3542 24.1771 28.875 24.4688L27.0625 22.6562C27.7917 22.1562 28.5677 21.776 29.3906 21.5156C30.2135 21.2552 31.0833 21.125 32 21.125C34.4375 21.125 36.5052 21.974 38.2031 23.6719C39.901 25.3698 40.75 27.4375 40.75 29.875C42.1875 30.0417 43.3802 30.6615 44.3281 31.7344C45.276 32.8073 45.75 34.0625 45.75 35.5C45.75 36.3125 45.5938 37.0677 45.2812 37.7656C44.9688 38.4635 44.5417 39.0625 44 39.5625Z"
+          fill="#BA1A1A"
+        />
+      </svg>
+    </div>
+
+    <h2 class="font-semibold mt-6 text-[20px] text-neutral-900">Something went wrong</h2>
+    <p class="text-center text-[16px] font-normal text-description">
+      We're having trouble retrieving your
+      <br />
+      projects right now. Please try
+      <br />
+      again in a moment.
+    </p>
+
+    <button class="btn mt-3 btn-primary" (click)="loadProjects()">Retry Connection</button>
+  </div>
+} @else if (state() === 'empty') {
+  <div class="flex-center flex-col gap-11 mt-4">
+    <img src="/images/empty.svg" alt="" />
+    <div class="text-center">
+      <h1 class="font-semibold text-[36px] tracking-[-0.9px] text-neutral-900">No Projects</h1>
+      <p class="text-description text-[18px] leading-[30px] mt-4">
+        You don’t have any projects yet. Start by defining
+        <br />
+        your first architectural workspace to begin tracking
+        <br />
+        tasks and epics.
+      </p>
+    </div>
+    <button class="btn btn-primary" routerLink="add">
+      <div>
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M9 15H11V11H15V9H11V5H9V9H5V11H9V15ZM10 20C8.61667 20 7.31667 19.7375 6.1 19.2125C4.88333 18.6875 3.825 17.975 2.925 17.075C2.025 16.175 1.3125 15.1167 0.7875 13.9C0.2625 12.6833 0 11.3833 0 10C0 8.61667 0.2625 7.31667 0.7875 6.1C1.3125 4.88333 2.025 3.825 2.925 2.925C3.825 2.025 4.88333 1.3125 6.1 0.7875C7.31667 0.2625 8.61667 0 10 0C11.3833 0 12.6833 0.2625 13.9 0.7875C15.1167 1.3125 16.175 2.025 17.075 2.925C17.975 3.825 18.6875 4.88333 19.2125 6.1C19.7375 7.31667 20 8.61667 20 10C20 11.3833 19.7375 12.6833 19.2125 13.9C18.6875 15.1167 17.975 16.175 17.075 17.075C16.175 17.975 15.1167 18.6875 13.9 19.2125C12.6833 19.7375 11.3833 20 10 20ZM10 18C12.2333 18 14.125 17.225 15.675 15.675C17.225 14.125 18 12.2333 18 10C18 7.76667 17.225 5.875 15.675 4.325C14.125 2.775 12.2333 2 10 2C7.76667 2 5.875 2.775 4.325 4.325C2.775 5.875 2 7.76667 2 10C2 12.2333 2.775 14.125 4.325 15.675C5.875 17.225 7.76667 18 10 18Z"
+            fill="white"
+          />
+        </svg>
+      </div>
+      Create New Project
+    </button>
+  </div>
+} @else if (state() === 'success') {
+  <div class="flex flex-col gap-10">
+    <!-- Page Header -->
+    <div class="flex items-center justify-between">
+      <div>
+        <h1 class="text-neutral-900 text-[26px] font-semibold">Projects</h1>
+        <p class="text-description text-[16px] font-normal">Manage and curate your projects</p>
+      </div>
+
+      <button
+        class="fixed bottom-[80px] right-[20px] md:top-0 md:right-0 md:relative btn btn-primary"
+        routerLink="add"
+      >
+        <div>
+          <svg
+            width="11"
+            height="11"
+            viewBox="0 0 11 11"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M4.5 6H0V4.5H4.5V0H6V4.5H10.5V6H6V10.5H4.5V6Z" fill="white" />
+          </svg>
+        </div>
+        <span class="hidden md:block">Create New Project</span>
+      </button>
+    </div>
+
+    <!-- Projects Cards Container -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+      <!-- Project Card -->
+      @for (projectItem of projects; track $index) {
+        <div class="h-[250px] bg-white p-6 flex flex-col justify-between rounded-[8px]">
+          <!-- Project Content -->
+          <div>
+            <div class="flex items-start justify-between">
+              <h1 class="text-neutral-900 text-[18px] font-medium">{{ projectItem.name }}</h1>
+              <!-- Edit Icon -->
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  class="size-5 cursor-pointer text-neutral-400 hover:text-primary duration-200"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+                  />
+                </svg>
+              </div>
+            </div>
+            <p class="text-description text-[14px] leading-[22.75px] font-normal mt-3 line-clamp-5">
+              {{ projectItem.description }}
+            </p>
+          </div>
+
+          <!-- Project Date -->
+          <div class="flex items-center justify-between pt-4 border-t-1 border-border-color">
+            <p class="color-placeholder-normal text-[11px] font-bold uppercase tracking-[-.5px]">
+              Created at
+            </p>
+
+            <p class="font-medium text-[14px] text-description">
+              {{ projectItem.created_at | date: 'dd MMM yyyy' }}
+            </p>
+          </div>
+        </div>
+      }
+
+      <!-- Add Project Card -->
+      <div class="hidden sm:block">
+        <div
+          routerLink="add"
+          class="min-h-[250px] bg-white p-6 flex-center flex-col gap-4 rounded-[8px] border-dashed border-2 border-gray-300 duration-200 cursor-pointer hover:border-primary"
+        >
+          <div>
+            <svg
+              width="48"
+              height="48"
+              viewBox="0 0 48 48"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect width="48" height="48" rx="12" fill="#F1F3FF" />
+              <path
+                d="M23 29H25V25H29V23H25V19H23V23H19V25H23V29ZM24 34C22.6167 34 21.3167 33.7375 20.1 33.2125C18.8833 32.6875 17.825 31.975 16.925 31.075C16.025 30.175 15.3125 29.1167 14.7875 27.9C14.2625 26.6833 14 25.3833 14 24C14 22.6167 14.2625 21.3167 14.7875 20.1C15.3125 18.8833 16.025 17.825 16.925 16.925C17.825 16.025 18.8833 15.3125 20.1 14.7875C21.3167 14.2625 22.6167 14 24 14C25.3833 14 26.6833 14.2625 27.9 14.7875C29.1167 15.3125 30.175 16.025 31.075 16.925C31.975 17.825 32.6875 18.8833 33.2125 20.1C33.7375 21.3167 34 22.6167 34 24C34 25.3833 33.7375 26.6833 33.2125 27.9C32.6875 29.1167 31.975 30.175 31.075 31.075C30.175 31.975 29.1167 32.6875 27.9 33.2125C26.6833 33.7375 25.3833 34 24 34ZM24 32C26.2333 32 28.125 31.225 29.675 29.675C31.225 28.125 32 26.2333 32 24C32 21.7667 31.225 19.875 29.675 18.325C28.125 16.775 26.2333 16 24 16C21.7667 16 19.875 16.775 18.325 18.325C16.775 19.875 16 21.7667 16 24C16 26.2333 16.775 28.125 18.325 29.675C19.875 31.225 21.7667 32 24 32Z"
+                fill="#041B3C"
+              />
+            </svg>
+          </div>
+
+          <h3 class="uppercase text-description text-[14px] tracking-[1.4px] font-bold">
+            add project
+          </h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project Pagination -->
+
+    <!-- TODO: PAGINATION COMPONENT & LOGIC -->
+    <div class="hidden sm:block">
+      <div class="my-5 flex items-center justify-between">
+        <p class="font-medium text-[12px] text-description">Showing 5 of 24 active projects</p>
+
+        <div class="flex-center w-fit gap-2">
+          <!-- Next -->
+          <div
+            class="border-1 rounded-[2px] border-[#C3C6D64D] cursor-pointer flex-center w-[32px] h-[32px]"
+          >
+            <svg
+              width="5"
+              height="7"
+              viewBox="0 0 5 7"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.5 7L0 3.5L3.5 0L4.31667 0.816667L1.63333 3.5L4.31667 6.18333L3.5 7Z"
+                fill="#434654"
+              />
+            </svg>
+          </div>
+
+          <!-- Pagination Numbers -->
+          <div
+            class="border-1 rounded-[2px] text-[12px] font-bold bg-primary text-white border-[#C3C6D64D] cursor-pointer flex-center w-[32px] h-[32px]"
+          >
+            1
+          </div>
+
+          <div
+            class="border-1 rounded-[2px] text-[12px] font-bold text-description border-[#C3C6D64D] cursor-pointer flex-center w-[32px] h-[32px]"
+          >
+            2
+          </div>
+          <!-- Previous -->
+          <div
+            class="border-1 rounded-[2px] border-[#C3C6D64D] cursor-pointer flex-center w-[32px] h-[32px]"
+          >
+            <svg
+              width="5"
+              height="7"
+              viewBox="0 0 5 7"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2.68333 3.5L0 0.816667L0.816667 0L4.31667 3.5L0.816667 7L0 6.18333L2.68333 3.5Z"
+                fill="#434654"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+} @else {}
