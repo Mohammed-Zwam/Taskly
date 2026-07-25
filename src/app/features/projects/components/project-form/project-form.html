@@ -1,0 +1,114 @@
+<div class="w-[100%] m-auto md:w-[90%] lg:w-[75%] w-full max-w-[1000px] sm:mt-10">
+  <div class="sm:shadow-main sm:bg-white rounded-[8px]">
+    <div
+      class="mb-8 sm:px-8 sm:pt-8 pb-3 sm:pb-10 flex items-center gap-4 border-b-1 border-border-color"
+    >
+      <div>
+        <svg
+          width="46"
+          height="44"
+          viewBox="0 0 46 44"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="46" height="44" rx="4" fill="#0052CC" fill-opacity="0.1" />
+          <path
+            d="M22 32C20.6167 32 19.3167 31.7375 18.1 31.2125C16.8833 30.6875 15.825 29.975 14.925 29.075C14.025 28.175 13.3125 27.1167 12.7875 25.9C12.2625 24.6833 12 23.3833 12 22C12 20.6167 12.2625 19.3167 12.7875 18.1C13.3125 16.8833 14.025 15.825 14.925 14.925C15.825 14.025 16.8833 13.3125 18.1 12.7875C19.3167 12.2625 20.6167 12 22 12C23.0833 12 24.1083 12.1583 25.075 12.475C26.0417 12.7917 26.9333 13.2333 27.75 13.8L26.3 15.275C25.6667 14.875 24.9917 14.5625 24.275 14.3375C23.5583 14.1125 22.8 14 22 14C19.7833 14 17.8958 14.7792 16.3375 16.3375C14.7792 17.8958 14 19.7833 14 22C14 24.2167 14.7792 26.1042 16.3375 27.6625C17.8958 29.2208 19.7833 30 22 30C22.5333 30 23.05 29.95 23.55 29.85C24.05 29.75 24.5333 29.6083 25 29.425L26.5 30.95C25.8167 31.2833 25.1 31.5417 24.35 31.725C23.6 31.9083 22.8167 32 22 32ZM29 30V27H26V25H29V22H31V25H34V27H31V30H29ZM20.6 26.6L16.35 22.35L17.75 20.95L20.6 23.8L30.6 13.775L32 15.175L20.6 26.6Z"
+            fill="#0052CC"
+          />
+        </svg>
+      </div>
+      <div>
+        <h1 class="text-[24px] sm:text-title-md font-semibold text-neutral-900 leading-[34px]">
+          @if (formType === 'create') {
+            Initialize New Project
+          } @else {
+            Edit Project
+          }
+        </h1>
+        <p class="text-[14px] text-neutral-600 leading-[20px]">
+          Define the scope and foundational details of your project.
+        </p>
+      </div>
+    </div>
+
+    <form
+      class="flex gap-8 flex-col sm:px-8 sm:pb-10"
+      [formGroup]="projectFormData"
+      (ngSubmit)="onSubmit()"
+    >
+      <app-input-field
+        placeholder="Enter your project title"
+        label="project Title"
+        type="text"
+        name="projectTitle"
+        [inputControl]="projectTitle"
+      >
+      </app-input-field>
+
+      <div>
+        <app-input-field
+          placeholder="Provide a high-level overview of the project's architectural objectives and key milestones..."
+          label="description"
+          type="text"
+          name="description"
+          [inputControl]="projectDescription"
+          customClasses="h-[148px]  resize-none"
+          [optionalLabel]="true"
+          [isTextArea]="true"
+        >
+        </app-input-field>
+
+        <p class="text-[11px] mt-1 text-end text-neutral-600 font-medium">
+          {{ projectDescription.value?.length || 0 }} / 500
+          <span class="hidden sm:inline">characters</span>
+        </p>
+      </div>
+
+      <div class="flex-col-reverse gap-4 sm:flex-row flex items-center justify-between mt-4">
+        <a class="text-[14px] mt-4 sm:mt-0 text-neutral-600 font-bold" routerLink="/projects"
+          >Back</a
+        >
+        <button
+          type="submit"
+          class="btn-primary cursor-pointer px-3.5 rounded-[4px] w-full sm:min-w-[160px] sm:w-fit h-[48px] flex-center gap-3"
+          [class.opacity-70]="isLoading()"
+          [disabled]="isLoading()"
+        >
+          @if (formType === 'create') {
+            Create Project
+          } @else {
+            Save Changes
+          }
+
+          @if (isLoading()) {
+            <app-btn-loading />
+          }
+        </button>
+      </div>
+    </form>
+
+    <div class="hidden sm:block">
+      <div class="flex items-center gap-3 p-6 bg-[#F1F3FF] rounded-b-[8px]">
+        <div>
+          <svg
+            width="12"
+            height="15"
+            viewBox="0 0 12 15"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M5.625 15C5.2125 15 4.85938 14.8531 4.56563 14.5594C4.27188 14.2656 4.125 13.9125 4.125 13.5H7.125C7.125 13.9125 6.97812 14.2656 6.68437 14.5594C6.39062 14.8531 6.0375 15 5.625 15ZM2.625 12.75V11.25H8.625V12.75H2.625ZM2.8125 10.5C1.95 9.9875 1.26562 9.3 0.759375 8.4375C0.253125 7.575 0 6.6375 0 5.625C0 4.0625 0.546875 2.73438 1.64062 1.64062C2.73438 0.546875 4.0625 0 5.625 0C7.1875 0 8.51562 0.546875 9.60938 1.64062C10.7031 2.73438 11.25 4.0625 11.25 5.625C11.25 6.6375 10.9969 7.575 10.4906 8.4375C9.98438 9.3 9.3 9.9875 8.4375 10.5H2.8125ZM3.2625 9H7.9875C8.55 8.6 8.98438 8.10625 9.29062 7.51875C9.59687 6.93125 9.75 6.3 9.75 5.625C9.75 4.475 9.35 3.5 8.55 2.7C7.75 1.9 6.775 1.5 5.625 1.5C4.475 1.5 3.5 1.9 2.7 2.7C1.9 3.5 1.5 4.475 1.5 5.625C1.5 6.3 1.65313 6.93125 1.95938 7.51875C2.26562 8.10625 2.7 8.6 3.2625 9Z"
+              fill="#4F5F7B"
+            />
+          </svg>
+        </div>
+        <p class="text-[12px] text-neutral-600">
+          <span class="font-bold">Pro Tip: </span>You can invite project members and assign epics
+          immediately after the initial creation process.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

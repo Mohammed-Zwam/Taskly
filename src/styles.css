@@ -64,8 +64,8 @@
   }
 
   .btn-primary {
-    @apply text-white cursor-pointer;
-    background: linear-gradient(135deg, #003d9b 0%, #0052cc 100%) !important;
+    @apply rounded-[4px] h-[48px] px-5 flex items-center justify-center gap-3 text-white cursor-pointer transition-all duration-200;
+    background: linear-gradient(135deg, #003d9b 0%, #0052cc 100%);
   }
 
   .btn-secondary {
