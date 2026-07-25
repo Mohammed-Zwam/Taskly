@@ -1,5 +1,5 @@
 import { LoginRequest } from './../../model/auth.model';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { InputField } from "../../components/input-field/input-field";
 import { BtnLoading } from "../../../../shared/components/btn-loading/btn-loading";
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -18,7 +18,7 @@ export class Login {
   constructor(private authService: AuthService) { }
   router = inject(Router);
   toastService = inject(ToastService);
-  isLoading: boolean = false;
+  isLoading = signal(false);
 
   email: FormControl = new FormControl('', [Validators.required, Validators.email]);
   password: FormControl = new FormControl('', [Validators.minLength(8), Validators.required, this.validatePassword]);
@@ -52,11 +52,11 @@ export class Login {
       rememberMe: this.rememberMe.value,
     }
 
-    this.isLoading = true;
+    this.isLoading.set(true);
 
     this.authService.login(loginRequest)
       .pipe(
-        finalize(() => this.isLoading = false)
+        finalize(() => this.isLoading.set(false))
       ).subscribe({
         next: (res) => {
           this.toastService.show('success', 'Login Successful', 'Welcome back!');

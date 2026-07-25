@@ -9,6 +9,7 @@ export class ToastService {
   messageTitle = signal('');
   messageContent = signal('');
   timeout!: ReturnType<typeof setTimeout>;
+  clearToastTimeout!: ReturnType<typeof setTimeout>;
 
 
   show(
@@ -22,6 +23,7 @@ export class ToastService {
     this.isVisible.set(true);
 
     clearTimeout(this.timeout);
+    clearTimeout(this.clearToastTimeout);
 
     this.timeout = setTimeout(() => {
       this.hide();
@@ -29,7 +31,11 @@ export class ToastService {
   }
 
   hide() {
-    clearTimeout(this.timeout);
+    clearTimeout(this.clearToastTimeout);
     this.isVisible.set(false);
+    this.clearToastTimeout = setTimeout(() => {
+      this.messageTitle.set('');
+      this.messageContent.set('');
+    }, 200);
   }
 }

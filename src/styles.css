@@ -27,7 +27,7 @@
   --text-body-md: 14px;
   --text-label-sm: 11px;
 
-  --shadow-main: 0px 24px 48px 0px #041b3c0f;
+  --shadow-main: 0px 24px 48px -12px #041b3c0f;
 
   --animate-fadeIn: fadeIn 0.3s ease-in-out;
   --animate-fadeOut: fadeOut 0.3s ease-in-out;
@@ -64,7 +64,7 @@
   }
 
   .btn-primary {
-    @apply bg-btn text-white;
+    @apply bg-btn text-white cursor-pointer;
   }
 
   .btn-secondary {
@@ -133,7 +133,6 @@ select:-webkit-autofill {
   cursor: pointer !important;
   pointer-events: none !important;
 }
-
 
 @media (width < 640px) {
   .hide-lnk-txt {
