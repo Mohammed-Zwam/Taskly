@@ -1,29 +1,36 @@
 import { ProjectsService } from './../../services/projects.service';
 import { Component, signal } from '@angular/core';
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { Project, ProjectsState } from '../../model/projects.model';
-import { finalize } from 'rxjs';
 import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-projects',
-  imports: [RouterLink, DatePipe],
+  imports: [DatePipe, RouterLink],
   templateUrl: './projects.html',
 })
 export class Projects {
   projects: Project[] = [];
-
   state = signal<ProjectsState>('loading');
 
 
-  constructor(private projectsService: ProjectsService) { }
+  constructor(private projectsService: ProjectsService, private router: Router) { }
 
 
   ngOnInit() {
-    // setTimeout(() => this.loadProjects(), 3000);
     this.loadProjects()
   }
 
+  editProject(project: Project) {
+    this.router.navigate(
+      ['projects', project.id, 'edit'],
+      {
+        state: {
+          project
+        }
+      }
+    );
+  }
 
   loadProjects() {
     this.state.set('loading');

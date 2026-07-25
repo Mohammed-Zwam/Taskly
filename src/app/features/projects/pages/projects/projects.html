@@ -115,13 +115,15 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
       <!-- Project Card -->
       @for (projectItem of projects; track $index) {
-        <div class="h-[250px] bg-white p-6 flex flex-col justify-between rounded-[8px]">
+        <div
+          class="h-[220px] bg-white p-6 flex flex-col justify-between rounded-[8px] cursor-pointer hover:translate-y-[-5px] hover:shadow-md duration-200"
+        >
           <!-- Project Content -->
           <div>
             <div class="flex items-start justify-between">
               <h1 class="text-neutral-900 text-[18px] font-medium">{{ projectItem.name }}</h1>
               <!-- Edit Icon -->
-              <div>
+              <div (click)="editProject(projectItem)">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -138,7 +140,7 @@
                 </svg>
               </div>
             </div>
-            <p class="text-description text-[14px] leading-[22.75px] font-normal mt-3 line-clamp-5">
+            <p class="text-description text-[14px] leading-[22.75px] font-normal mt-3 line-clamp-3">
               {{ projectItem.description }}
             </p>
           </div>

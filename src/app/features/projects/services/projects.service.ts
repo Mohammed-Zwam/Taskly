@@ -1,7 +1,7 @@
-import { CreateProjectRequest, Project } from './../model/projects.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API } from '../../../api.config';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Project, ProjectRequest } from '../model/projects.model';
 
 
 
@@ -18,14 +18,17 @@ export class ProjectsService {
   });
 
 
-  createProject(createProjectRequest: CreateProjectRequest) {
+  createProject(createProjectRequest: ProjectRequest) {
     return this.http.post(API.BASE + API.CREATE_PROJECT, createProjectRequest, { headers: this.headers });
   }
 
+  updateProject(updateProjectRequest: ProjectRequest, projectId: string) {
+    const params = new HttpParams().set('id', `eq.${projectId}`);
+    return this.http.patch(API.BASE + API.UPDATE_PROJECT, updateProjectRequest, { headers: this.headers, params });
+  }
 
   getProjects() {
     return this.http.get<Project[]>(API.BASE + API.GET_PROJECTS, { headers: this.headers });
   }
-
 
 }
