@@ -7,5 +7,7 @@ export const API = {
     REFRESH_TOKEN: '/auth/v1/token?grant_type=refresh_token',
     LOGOUT: '/auth/v1/logout',
     FORGET_PASSWORD: '/auth/v1/recover',
+    RESET_PASSWORD: '/auth/v1/user',
+    CREATE_PROJECT: '/rest/v1/projects',
     RESET_PASSWORD: '/auth/v1/user'
 };

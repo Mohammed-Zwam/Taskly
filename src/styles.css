@@ -17,7 +17,7 @@
   --color-warning: #ffb300;
   --color-placeholder-error: #93000a;
   --color-placeholder-normal: #737685;
-
+  --color-border-color: #f1f3ff;
   --color-btn: #0148b5;
 
   /* ---- FONTS ---- */
@@ -64,7 +64,8 @@
   }
 
   .btn-primary {
-    @apply bg-btn text-white cursor-pointer;
+    @apply text-white cursor-pointer;
+    background: linear-gradient(135deg, #003d9b 0%, #0052cc 100%) !important;
   }
 
   .btn-secondary {

@@ -1,0 +1,10 @@
+<ul class="flex-center gap-2 w-fit text-[12px] font-bold">
+  @for (item of navItems; track $index) {
+    <li class="cursor-pointer uppercase tracking-[1.2px] text-[#43465499] last:text-[#003D9B] last:cursor-default" routerLink="{{ item.link }}">{{ item.label }}</li>
+    @if (!($index === navItems.length - 1)) {
+      <svg width="4" height="6" viewBox="0 0 4 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2.3 3L0 0.7L0.7 0L3.7 3L0.7 6L0 5.3L2.3 3Z" fill="#434654" fill-opacity="0.4" />
+      </svg>
+    }
+  }
+</ul>
