@@ -17,7 +17,6 @@ export class UserLayout {
       this.userName = user.name;
       this.userTitle = user.department;
       const userNames = user.name.split(' ');
-      console.log(userNames)
       this.avatar = userNames[0][0] + userNames[1][0];
     }
   }
