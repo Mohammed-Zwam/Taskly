@@ -68,6 +68,10 @@
     background: linear-gradient(135deg, #003d9b 0%, #0052cc 100%);
   }
 
+  .skeleton {
+    @apply animate-pulse rounded-[4px] bg-[#cfd4e6];
+  }
+
   .btn-secondary {
     @apply text-btn;
   }

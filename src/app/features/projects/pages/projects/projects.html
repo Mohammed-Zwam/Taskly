@@ -12,7 +12,7 @@
     <!-- Project List Loading -->
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
       @for (item of [1, 2, 3, 4, 5, 6]; track $index) {
-        <div class="min-h-[230px] bg-white p-6 flex flex-col justify-between rounded-[8px]">
+        <div class="min-h-[240px] bg-white p-6 flex flex-col justify-between rounded-[8px]">
           <!-- Project Content -->
           <div class="flex flex-col gap-4">
             <div class="skeleton h-[128px]"></div>
@@ -84,7 +84,7 @@
     </button>
   </div>
 } @else if (state() === 'success') {
-  <div class="flex flex-col gap-10">
+  <div class="flex flex-col gap-6">
     <!-- Page Header -->
     <div class="flex items-center justify-between">
       <div>
@@ -116,7 +116,7 @@
       <!-- Project Card -->
       @for (projectItem of projects; track $index) {
         <div
-          class="h-[220px] bg-white p-6 flex flex-col justify-between rounded-[8px] cursor-pointer hover:translate-y-[-5px] hover:shadow-md duration-200"
+          class="h-[240px] bg-white p-6 flex flex-col justify-between rounded-[8px] cursor-pointer hover:translate-y-[-5px] hover:shadow-md duration-200"
         >
           <!-- Project Content -->
           <div>
@@ -140,7 +140,7 @@
                 </svg>
               </div>
             </div>
-            <p class="text-description text-[14px] leading-[22.75px] font-normal mt-3 line-clamp-3">
+            <p class="text-description text-[14px] leading-[22.75px] font-normal mt-3 line-clamp-4">
               {{ projectItem.description }}
             </p>
           </div>
@@ -162,7 +162,7 @@
       <div class="hidden sm:block">
         <div
           routerLink="add"
-          class="min-h-[250px] bg-white p-6 flex-center flex-col gap-4 rounded-[8px] border-dashed border-2 border-gray-300 duration-200 cursor-pointer hover:border-primary"
+          class="h-[240px] bg-white p-6 flex-center flex-col gap-4 rounded-[8px] border-dashed border-2 border-gray-300 duration-200 cursor-pointer hover:border-primary"
         >
           <div>
             <svg
