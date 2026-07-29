@@ -5,10 +5,11 @@ import { Project, ProjectsState } from '../../model/projects.model';
 import { DatePipe } from '@angular/common';
 import { Pagination } from "../../../../shared/components/pagination/pagination";
 import { BtnLoading } from "../../../../shared/components/btn-loading/btn-loading";
+import { ErrorState } from "../../../../shared/components/error-state/error-state";
 
 @Component({
   selector: 'app-projects',
-  imports: [DatePipe, RouterLink, Pagination, BtnLoading],
+  imports: [DatePipe, RouterLink, Pagination, BtnLoading, ErrorState],
   templateUrl: './projects.html',
 })
 export class Projects {
@@ -48,12 +49,15 @@ export class Projects {
   @HostListener('window:resize')
   onWindowResize() {
     if (window.innerWidth < 768) {
-      this.currentPage.set(1);
-      this.projects = [];
+      if (!this.isPhoneView()) {
+        this.projects = [];
+        if (this.currentPage() === 1) this.loadProjects();
+        else this.currentPage.set(1);
+      }
       this.isPhoneView.set(true);
     } else {
+      if (this.isPhoneView()) this.loadProjects();
       this.isPhoneView.set(false);
-      this.loadProjects();
     }
   }
 
@@ -68,7 +72,7 @@ export class Projects {
     );
   }
 
-  loadProjects() {
+  loadProjects = () => {
     this.state.set('loading');
 
     this.projectsService.getProjects(this.currentPage(), this.limit)
