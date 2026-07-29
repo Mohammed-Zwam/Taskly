@@ -1,8 +1,8 @@
-@if (state() === 'loading') {
-  <div class="flex flex-col gap-10">
+@if (state() === 'loading' && !isPhoneView()) {
+  <div class="flex flex-col gap-5">
     <div class="flex items-center justify-between">
       <div>
-        <h1 class="text-neutral-900 text-[26px] font-semibold">Projects</h1>
+        <h1 class="text-neutral-900 text-[25px] font-semibold">Projects</h1>
         <p class="text-description text-[16px] font-normal">Manage and curate your projects</p>
       </div>
 
@@ -10,9 +10,9 @@
     </div>
 
     <!-- Project List Loading -->
-    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 gap-y-4">
       @for (item of [1, 2, 3, 4, 5, 6]; track $index) {
-        <div class="min-h-[240px] bg-white p-6 flex flex-col justify-between rounded-[8px]">
+        <div class="min-h-[245px] bg-white p-6 flex flex-col justify-between rounded-[8px]">
           <!-- Project Content -->
           <div class="flex flex-col gap-4">
             <div class="skeleton h-[128px]"></div>
@@ -83,17 +83,17 @@
       Create New Project
     </button>
   </div>
-} @else if (state() === 'success') {
-  <div class="flex flex-col gap-6">
+} @else {
+  <div class="flex flex-col gap-5">
     <!-- Page Header -->
     <div class="flex items-center justify-between">
       <div>
-        <h1 class="text-neutral-900 text-[26px] font-semibold">Projects</h1>
+        <h1 class="text-neutral-900 text-[25px] font-semibold">Projects</h1>
         <p class="text-description text-[16px] font-normal">Manage and curate your projects</p>
       </div>
 
       <button
-        class="fixed bottom-[80px] right-[20px] md:top-0 md:right-0 md:relative btn btn-primary"
+        class="fixed bottom-[80px] right-[20px] z-10 md:top-0 md:right-0 md:relative btn btn-primary"
         routerLink="add"
       >
         <div>
@@ -112,11 +112,11 @@
     </div>
 
     <!-- Projects Cards Container -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 gap-y-4">
       <!-- Project Card -->
       @for (projectItem of projects; track $index) {
         <div
-          class="h-[240px] bg-white p-6 flex flex-col justify-between rounded-[8px] cursor-pointer hover:translate-y-[-5px] hover:shadow-md duration-200"
+          class="h-[245px] bg-white p-6 flex flex-col justify-between rounded-[8px] cursor-pointer hover:translate-y-[-5px] hover:shadow-md duration-200"
         >
           <!-- Project Content -->
           <div>
@@ -140,7 +140,7 @@
                 </svg>
               </div>
             </div>
-            <p class="text-description text-[14px] leading-[22.75px] font-normal mt-3 line-clamp-4">
+            <p class="text-description text-[14px] leading-[22.75px] font-normal mt-3 line-clamp-5">
               {{ projectItem.description }}
             </p>
           </div>
@@ -158,11 +158,31 @@
         </div>
       }
 
+      @if (state() === 'loading' && isPhoneView() && projects?.length === 0) {
+        @for (item of [1, 2]; track $index) {
+          <div class="min-h-[245px] bg-white p-6 flex flex-col justify-between rounded-[8px]">
+            <!-- Project Content -->
+            <div class="flex flex-col gap-4">
+              <div class="skeleton h-[128px]"></div>
+              <div class="skeleton h-[24px] w-[75%]"></div>
+              <div class="skeleton h-[24px] w-[40%]"></div>
+            </div>
+          </div>
+        }
+      }
+
+      @if (state() === 'loading' && isPhoneView() && projects?.length !== 0) {
+        <div class="py-10 scale-[1.5] flex-center">
+          <app-btn-loading loadingColor="primary" />
+        </div>
+      }
+
+      
       <!-- Add Project Card -->
       <div class="hidden sm:block">
         <div
           routerLink="add"
-          class="h-[240px] bg-white p-6 flex-center flex-col gap-4 rounded-[8px] border-dashed border-2 border-gray-300 duration-200 cursor-pointer hover:border-primary"
+          class="h-[245px] bg-white p-6 flex-center flex-col gap-4 rounded-[8px] border-dashed border-2 border-gray-300 duration-200 cursor-pointer hover:border-primary"
         >
           <div>
             <svg
@@ -189,61 +209,10 @@
 
     <!-- Project Pagination -->
 
-    <!-- TODO: PAGINATION COMPONENT & LOGIC -->
-    <div class="hidden sm:block">
-      <div class="my-5 flex items-center justify-between">
-        <p class="font-medium text-[12px] text-description">Showing 5 of 24 active projects</p>
-
-        <div class="flex-center w-fit gap-2">
-          <!-- Next -->
-          <div
-            class="border-1 rounded-[2px] border-[#C3C6D64D] cursor-pointer flex-center w-[32px] h-[32px]"
-          >
-            <svg
-              width="5"
-              height="7"
-              viewBox="0 0 5 7"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.5 7L0 3.5L3.5 0L4.31667 0.816667L1.63333 3.5L4.31667 6.18333L3.5 7Z"
-                fill="#434654"
-              />
-            </svg>
-          </div>
-
-          <!-- Pagination Numbers -->
-          <div
-            class="border-1 rounded-[2px] text-[12px] font-bold bg-primary text-white border-[#C3C6D64D] cursor-pointer flex-center w-[32px] h-[32px]"
-          >
-            1
-          </div>
-
-          <div
-            class="border-1 rounded-[2px] text-[12px] font-bold text-description border-[#C3C6D64D] cursor-pointer flex-center w-[32px] h-[32px]"
-          >
-            2
-          </div>
-          <!-- Previous -->
-          <div
-            class="border-1 rounded-[2px] border-[#C3C6D64D] cursor-pointer flex-center w-[32px] h-[32px]"
-          >
-            <svg
-              width="5"
-              height="7"
-              viewBox="0 0 5 7"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M2.68333 3.5L0 0.816667L0.816667 0L4.31667 3.5L0.816667 7L0 6.18333L2.68333 3.5Z"
-                fill="#434654"
-              />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
+    <app-pagination
+      [currentPage]="currentPage"
+      [totalProjectsCount]="totalProjectsCount"
+      [limit]="limit"
+    ></app-pagination>
   </div>
-} @else {}
+}
