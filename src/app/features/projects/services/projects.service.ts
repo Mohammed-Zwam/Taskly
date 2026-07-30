@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { API } from '../../../api.config';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Project, ProjectRequest } from '../model/projects.model';
+import { Project, ProjectMembersResponse, ProjectRequest } from '../model/projects.model';
+import { map } from 'rxjs';
+import { getAvatar } from '../../../core/utils/helpers';
 
 
 
@@ -31,4 +33,31 @@ export class ProjectsService {
     return this.http.get<Project[]>(API.BASE + API.GET_PROJECTS, { headers: this.headers });
   }
 
+<<<<<<< Updated upstream
 }
+=======
+
+  getProjectDetails(projectId: string) {
+    const params = new HttpParams().set('id', 'eq.' + projectId);
+    return this.http.get<Project[]>(API.BASE + API.GET_PROJECTS, { headers: this.headers, params });
+  }
+
+
+  getProjectMembers(projectId: string) {
+    const params = new HttpParams().set('project_id', 'eq.' + projectId);
+    return this.http.get<ProjectMembersResponse[]>(API.BASE + API.GET_PROJECT_MEMBERS, { headers: this.headers, params })
+      .pipe(
+        map((response: ProjectMembersResponse[]) => {
+          return response.map((projectMember) => ({
+            memberId: projectMember.member_id,
+            role: projectMember.role,
+            department: projectMember.metadata.department,
+            email: projectMember.metadata.email,
+            name: projectMember.metadata.name,
+            avatar: getAvatar(projectMember.metadata.name),
+          }));
+        })
+      );
+  }
+}
+>>>>>>> Stashed changes

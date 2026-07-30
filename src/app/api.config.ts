@@ -10,5 +10,6 @@ export const API = {
     RESET_PASSWORD: '/auth/v1/user',
     CREATE_PROJECT: '/rest/v1/projects',
     UPDATE_PROJECT: '/rest/v1/projects',
-    GET_PROJECTS: '/rest/v1/rpc/get_projects'
+    GET_PROJECTS: '/rest/v1/rpc/get_projects',
+    GET_PROJECT_MEMBERS: '/rest/v1/get_project_members'
 };

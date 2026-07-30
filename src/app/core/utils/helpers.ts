@@ -1,4 +1,3 @@
-import { HttpContextToken } from "@angular/common/http";
 import { AbstractControl } from "@angular/forms";
 
 export function validatePassword(control: AbstractControl) {
@@ -33,4 +32,19 @@ export function passwordMatchValidator(form: AbstractControl) {
         return { mismatch: true }
     }
     else return null;
+}
+
+
+export function getAvatar(name: string): string {
+    const userNames = name.split(' ');
+    return userNames[0][0] + userNames[1][0];
+}
+
+
+export function getRandomColor(): string {
+  const hue = Math.floor(Math.random() * 360);
+  const saturation = 60 + Math.floor(Math.random() * 31); 
+  const lightness = 35 + Math.floor(Math.random() * 26);  
+
+  return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 }

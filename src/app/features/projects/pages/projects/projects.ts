@@ -1,7 +1,7 @@
 import { ProjectsService } from './../../services/projects.service';
 import { Component, signal } from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
-import { Project, ProjectsState } from '../../model/projects.model';
+import { PageState, Project } from '../../model/projects.model';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -10,8 +10,17 @@ import { DatePipe } from '@angular/common';
   templateUrl: './projects.html',
 })
 export class Projects {
+<<<<<<< Updated upstream
   projects: Project[] = [];
   state = signal<ProjectsState>('loading');
+=======
+  projects: Project[] | null = [];
+  state = signal<PageState>('loading');
+  currentPage = signal<number>(1);
+  totalProjectsCount = signal<number>(0);
+  limit = 5;
+  isPhoneView = signal<boolean>(false);
+>>>>>>> Stashed changes
 
 
   constructor(private projectsService: ProjectsService, private router: Router) { }

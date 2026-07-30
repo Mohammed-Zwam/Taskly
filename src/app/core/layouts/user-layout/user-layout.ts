@@ -4,6 +4,7 @@ import { SideNavbar } from "../../../shared/components/side-navbar/side-navbar";
 import { RouterOutlet } from '@angular/router';
 import { User } from '../../../features/auth/model/auth.model';
 import { BottomNavbar } from "../../../shared/components/bottom-navbar/bottom-navbar";
+import { getAvatar } from '../../utils/helpers';
 
 @Component({
   selector: 'app-user-layout',
@@ -16,17 +17,16 @@ export class UserLayout {
     if (user != null) {
       this.userName = user.name;
       this.userTitle = user.department;
-      const userNames = user.name.split(' ');
-      this.avatar = userNames[0][0] + userNames[1][0];
+      this.avatar = getAvatar(user.name);
     }
   }
   userName: string = "Rafiq User";
   userTitle: string = "Rafiq Developer";
   avatar: string = "ru";
-  isSideAppear = false;
+  isSideAppear = signal<boolean>(false);
 
   @HostListener('window:resize')
   onResize() {
-    if (window.innerWidth >= 640) this.isSideAppear = false;
+    if (window.innerWidth >= 640) this.isSideAppear.set(false);
   }
 }

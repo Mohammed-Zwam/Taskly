@@ -64,7 +64,11 @@
   }
 
   .btn-primary {
+<<<<<<< Updated upstream
     @apply rounded-[4px] h-[48px] px-5 flex items-center justify-center gap-3 text-white cursor-pointer transition-all duration-200;
+=======
+    @apply rounded-[4px] h-[45px] px-4 flex items-center justify-center gap-3 text-white cursor-pointer  transition-all duration-300;
+>>>>>>> Stashed changes
     background: linear-gradient(135deg, #003d9b 0%, #0052cc 100%);
   }
 

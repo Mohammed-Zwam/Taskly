@@ -1,5 +1,9 @@
 import { NgClass } from '@angular/common';
+<<<<<<< Updated upstream
 import { Component, Input } from '@angular/core';
+=======
+import { Component, computed, inject, Input, WritableSignal } from '@angular/core';
+>>>>>>> Stashed changes
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router, RouterLink, RouterLinkActive } from "@angular/router";
 import { AuthService } from '../../../features/auth/services/auth.service';
@@ -18,7 +22,7 @@ export class SideNavbar {
 
   ) { }
   isCollapsed = false;
-  @Input() isSideAppear !: boolean;
+  @Input() isSideAppear !: WritableSignal<boolean>;
 
   navbarLinks = [
     {

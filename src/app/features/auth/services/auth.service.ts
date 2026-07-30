@@ -54,7 +54,6 @@ export class AuthService {
       );
   }
 
-
   forgetPassword(email: string) {
     return this.http.post(API.BASE + API.FORGET_PASSWORD, { email }, { headers: this.headers });
   }
@@ -62,11 +61,10 @@ export class AuthService {
 
   resetPassword(password: string, accessToken: string) {
     this.cookieService.set("access_token", accessToken);
-    console.log(accessToken)
 
     return this.http.put(API.BASE + API.RESET_PASSWORD, { password }, { headers: this.headers });
   }
-  
+
   private storeSessionData(res: AuthResponse, rememberMe: boolean) {
     this.sessionService.setUser({
       id: res.user.user_metadata.sub,

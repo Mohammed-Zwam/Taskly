@@ -1,23 +1,26 @@
-<nav class="block sm:hidden">
-  <div class="flex-center w-full bg-[#F1F3FF] fixed left-0 bottom-0 h-[64px] z-1">
-    <ul class="flex-center gap-10">
-      @for (linkItem of navbarLinks; track $index) {
-        <li
-          routerLinkActive="!text-primary shadow-[0px_1px_2px_0px_#0000000D]"
-          class="text-[#041B3C99]"
-        >
-          <a
-            class="flex-center flex-col gap-0.5 h-[100%] gap-0.5 text-inherit text-body-md font-medium"
-            routerLink="{{ linkItem.path }}"
+@if (projectContextService.getActiveProject() !== null) {
+  <nav class="block lg:hidden">
+    <div class="flex-center w-full bg-[#F1F3FF] fixed left-0 bottom-0 h-[64px] z-1">
+      <ul class="flex-center gap-10">
+        @for (linkItem of navbarLinks(); track $index) {
+          <li
+            routerLinkActive="!text-primary shadow-[0px_1px_2px_0px_#0000000D]"
+            class="text-[#041B3C99]"
+            [routerLinkActiveOptions]="{ exact: true }"
           >
-            <span class="w-[20px] h-fit" [innerHTML]="getIcon(linkItem.icon)"></span>
+            <a
+              class="flex-center flex-col gap-0.5 h-[100%] gap-0.5 text-inherit text-body-md font-medium"
+              routerLink="{{ linkItem.path }}"
+            >
+              <span class="w-[20px] h-fit" [innerHTML]="getIcon(linkItem.icon)"></span>
 
-            <span class="whitespace-nowrap show transition-all duration-200 text-[10px]">
-              {{ linkItem.name }}
-            </span>
-          </a>
-        </li>
-      }
-    </ul>
-  </div>
-</nav>
+              <span class="whitespace-nowrap show transition-all duration-200 text-[10px]">
+                {{ linkItem.name }}
+              </span>
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+  </nav>
+}

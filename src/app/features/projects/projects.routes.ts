@@ -13,7 +13,30 @@ export const projectsRoutes = [
         component: AddProject
     },
     {
+<<<<<<< Updated upstream
         path: ':id/edit',
         component: EditProject
+=======
+        path: "project",
+        // canActivate: [activeProjectGuard],
+        children: [
+            {
+                path: ':id/edit',
+                component: EditProject
+            },
+            {
+                path: ':id/tasks',
+                component: Tasks
+            },
+            {
+                path: ':id/epics',
+                component: Epics
+            },
+            {
+                path: ':id/members',
+                component: Members
+            }
+        ]
+>>>>>>> Stashed changes
     }
 ];
