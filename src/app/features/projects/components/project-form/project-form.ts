@@ -7,6 +7,7 @@ import { ProjectsService } from '../../services/projects.service';
 import { Router, RouterLink } from '@angular/router';
 import { Project, ProjectRequest } from '../../model/projects.model';
 import { finalize } from 'rxjs';
+import { ProjectContextService } from '../../services/project-context.service';
 
 @Component({
   selector: 'app-project-form',
@@ -16,7 +17,7 @@ import { finalize } from 'rxjs';
 export class ProjectForm {
   @Input() formType: 'create' | 'edit' = 'create';
   isLoading = signal<boolean>(false);
-  projectId!: string;
+  @Input() project!: Project;
   projectTitle: FormControl = new FormControl('', [Validators.minLength(3), Validators.maxLength(100), Validators.required]);
   projectDescription: FormControl = new FormControl('', [Validators.maxLength(500)]);
   projectFormData: FormGroup = new FormGroup({
@@ -25,13 +26,17 @@ export class ProjectForm {
   });
 
 
-  constructor(private toastService: ToastService, private projectsService: ProjectsService, private router: Router) { }
+  constructor(
+    private toastService: ToastService,
+    private projectsService: ProjectsService,
+    private router: Router,
+  ) { }
 
   ngOnInit() {
+
     if (this.formType === 'edit') {
-      this.projectId = history.state.project.id;
-      this.projectTitle.setValue(history.state.project.name);
-      this.projectDescription.setValue(history.state.project.description);
+      this.projectTitle.setValue(this.project.name);
+      this.projectDescription.setValue(this.project.description);
     }
   }
 
@@ -66,7 +71,7 @@ export class ProjectForm {
           }
         });
     } else {
-      this.projectsService.updateProject(updateProjectRequest, this.projectId)
+      this.projectsService.updateProject(updateProjectRequest, this.project.id)
         .pipe(
           finalize(() => this.isLoading.set(false))
         )

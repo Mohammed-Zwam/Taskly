@@ -1,3 +1,4 @@
+import { ProjectContextService } from './../../services/project-context.service';
 import { ProjectsService } from './../../services/projects.service';
 import { Component, effect, HostListener, signal } from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
@@ -21,7 +22,11 @@ export class Projects {
   isPhoneView = signal<boolean>(false);
 
 
-  constructor(private projectsService: ProjectsService, private router: Router) {
+  constructor(
+    private projectsService: ProjectsService,
+    private router: Router,
+    private projectContextService: ProjectContextService
+  ) {
     effect(() => {
       this.loadProjects();
     })
@@ -30,8 +35,14 @@ export class Projects {
   ngOnInit() {
     this.onWindowResize();
     this.onWindowResize();
+    this.projectContextService.resetActiveProject();
   }
 
+
+  navigateToProject(project: Project, page: string) {
+    this.projectContextService.setActiveProject(project);
+    this.router.navigate(['project', project.id, page]);
+  }
 
   @HostListener('window:scroll')
   onWindowScroll() {
@@ -59,17 +70,6 @@ export class Projects {
       if (this.isPhoneView()) this.loadProjects();
       this.isPhoneView.set(false);
     }
-  }
-
-  editProject(project: Project) {
-    this.router.navigate(
-      ['projects', project.id, 'edit'],
-      {
-        state: {
-          project
-        }
-      }
-    );
   }
 
   loadProjects = () => {
