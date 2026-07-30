@@ -64,8 +64,11 @@
   }
 
   .btn-primary {
-    @apply rounded-[4px] h-[48px] px-5 flex items-center justify-center gap-3 text-white cursor-pointer transition-all duration-200;
+    @apply rounded-[4px] h-[48px] px-5 flex items-center justify-center gap-3 text-white cursor-pointer  transition-all duration-300;
     background: linear-gradient(135deg, #003d9b 0%, #0052cc 100%);
+  }
+  .btn-primary:hover {
+    box-shadow: 0 0 80px 0px rgba(0, 0, 0, 0.5) inset;
   }
 
   .skeleton {
