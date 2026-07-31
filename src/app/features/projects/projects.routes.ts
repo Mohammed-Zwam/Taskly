@@ -1,16 +1,18 @@
+import { EditProject } from "./pages/edit-project/edit-project";
+import { AddProject } from "./pages/add-project/add-project";
+import { Projects } from "./pages/projects/projects";
+import { Tasks } from "./pages/tasks/tasks";
 import { activeProjectGuard } from '../../core/guards/active-project-guard';
-import { AddEpic } from '../../features/epics/pages/add-epic/add-epic';
-import { Epics } from '../../features/epics/pages/epics/epics';
-import { AddProject } from '../../features/projects/pages/add-project/add-project';
-import { EditProject } from '../../features/projects/pages/edit-project/edit-project';
-import { Members } from '../../features/members/pages/members/members';
-import { Projects } from '../../features/projects/pages/projects/projects';
-import { Tasks } from '../../features/projects/pages/tasks/tasks';
+import { Epics } from "../epics/pages/epics/epics";
+import { Members } from "../members/pages/members/members";
+import { AddEpic } from "../epics/pages/add-epic/add-epic";
 
 export const projectsRoutes = [
     {
         path: 'projects',
         component: Projects,
+
+
     },
     {
         path: 'projects/add',

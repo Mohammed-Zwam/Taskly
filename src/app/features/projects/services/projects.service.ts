@@ -42,6 +42,5 @@ export class ProjectsService {
     return this.http.get<Project[]>(API.BASE + API.GET_PROJECTS, { headers: this.headers, params });
   }
 
-
 }
 

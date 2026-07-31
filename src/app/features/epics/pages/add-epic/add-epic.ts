@@ -1,5 +1,4 @@
 import { Component, inject, signal } from '@angular/core';
-import { ProjectContextService } from '../../../../core/services/project-context.service';
 import { NavList } from "../../../../shared/components/nav-list/nav-list";
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from "@angular/router";
@@ -10,6 +9,7 @@ import { EpicsService } from '../../services/epics.service';
 import { ProjectEpicRequest } from '../../models/epics.model';
 import { finalize } from 'rxjs';
 import { MembersService } from '../../../members/services/members.service';
+import { ProjectContextService } from '../../../projects/services/project-context.service';
 
 @Component({
   selector: 'app-add-epic',

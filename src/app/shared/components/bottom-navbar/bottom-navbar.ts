@@ -1,4 +1,4 @@
-import { ProjectContextService } from '../../../core/services/project-context.service';
+import { ProjectContextService } from './../../../features/projects/services/project-context.service';
 import { Component, computed, inject } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RouterLink, RouterLinkActive } from "@angular/router";

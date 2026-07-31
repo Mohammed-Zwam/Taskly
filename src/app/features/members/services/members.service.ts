@@ -3,7 +3,7 @@ import { API } from '../../../api.config';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { map } from 'rxjs';
 import { getAvatar } from '../../../core/utils/helpers';
-import { ProjectMembersResponse } from '../models/members.model';
+import { ProjectMembersResponse } from '../../projects/model/projects.model';
 
 
 
@@ -20,7 +20,7 @@ export class MembersService {
     'Prefer': 'count=exact'
   });
 
-
+  
   getProjectMembers(projectId: string) {
     const params = new HttpParams().set('project_id', 'eq.' + projectId);
     return this.http.get<ProjectMembersResponse[]>(API.BASE + API.GET_PROJECT_MEMBERS, { headers: this.headers, params })

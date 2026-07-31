@@ -28,5 +28,10 @@ export type ProjectEpicResponse = {
 }
 
 export type ProjectEpic = {
-
+    epicId: string;
+    title: string;
+    assigneeName: string;
+    assigneeAvatar: string;
+    createdBy: string;
+    createdAt: string;
 }

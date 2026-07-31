@@ -1,4 +1,4 @@
-import { ProjectContextService } from '../../../../core/services/project-context.service';
+import { ProjectContextService } from './../../services/project-context.service';
 import { Component } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { NavList } from "../../../../shared/components/nav-list/nav-list";
