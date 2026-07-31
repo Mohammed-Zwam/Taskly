@@ -1,4 +1,3 @@
-import { MembersService } from './../../services/members.service';
 import { Component, signal } from '@angular/core';
 
 import { NgClass } from '@angular/common';
@@ -8,6 +7,7 @@ import { ErrorState } from '../../../../shared/components/error-state/error-stat
 import { getRandomColor } from '../../../../core/utils/helpers';
 import { PageState, ProjectMember } from '../../../projects/model/projects.model';
 import { ProjectContextService } from '../../../projects/services/project-context.service';
+import { MembersService } from '../../services/members.service';
 
 
 @Component({

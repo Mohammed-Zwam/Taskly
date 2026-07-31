@@ -10,7 +10,7 @@ import { ProjectMembersResponse } from '../../projects/model/projects.model';
 @Injectable({
   providedIn: 'root',
 })
-export class ProjectsService {
+export class MembersService {
 
   constructor(private http: HttpClient) { }
 
@@ -28,6 +28,7 @@ export class ProjectsService {
         map((response: ProjectMembersResponse[]) => {
           return response.map((projectMember) => ({
             memberId: projectMember.member_id,
+            userId: projectMember.user_id,
             role: projectMember.role,
             department: projectMember.metadata.department,
             email: projectMember.metadata.email,

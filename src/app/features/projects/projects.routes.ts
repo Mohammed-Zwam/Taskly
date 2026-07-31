@@ -1,10 +1,11 @@
 import { EditProject } from "./pages/edit-project/edit-project";
 import { AddProject } from "./pages/add-project/add-project";
 import { Projects } from "./pages/projects/projects";
-import { Epics } from "./pages/epics/epics";
-import { Members } from "./pages/members/members";
 import { Tasks } from "./pages/tasks/tasks";
 import { activeProjectGuard } from '../../core/guards/active-project-guard';
+import { Epics } from "../epics/pages/epics/epics";
+import { Members } from "../members/pages/members/members";
+import { AddEpic } from "../epics/pages/add-epic/add-epic";
 
 export const projectsRoutes = [
     {
@@ -32,6 +33,10 @@ export const projectsRoutes = [
             {
                 path: ':id/epics',
                 component: Epics
+            },
+            {
+                path: ':id/epics/new',
+                component: AddEpic
             },
             {
                 path: ':id/members',
