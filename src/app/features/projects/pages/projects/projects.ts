@@ -1,4 +1,4 @@
-import { ProjectContextService } from './../../services/project-context.service';
+import { ProjectContextService } from '../../../../core/services/project-context.service';
 import { ProjectsService } from './../../services/projects.service';
 import { Component, effect, HostListener, signal } from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
@@ -18,7 +18,7 @@ export class Projects {
   state = signal<PageState>('loading');
   currentPage = signal<number>(1);
   totalProjectsCount = signal<number>(0);
-  limit = 5;
+  limit = 8;
   isPhoneView = signal<boolean>(false);
 
 
@@ -55,7 +55,6 @@ export class Projects {
       }
     }
   }
-
 
   @HostListener('window:resize')
   onWindowResize() {
