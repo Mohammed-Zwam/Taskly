@@ -1,24 +1,25 @@
 import { EditProject } from "./pages/edit-project/edit-project";
 import { AddProject } from "./pages/add-project/add-project";
 import { Projects } from "./pages/projects/projects";
+import { Epics } from "./pages/epics/epics";
+import { Members } from "./pages/members/members";
+import { Tasks } from "./pages/tasks/tasks";
+import { activeProjectGuard } from '../../core/guards/active-project-guard';
 
 export const projectsRoutes = [
     {
-        path: '',
+        path: 'projects',
         component: Projects,
+
 
     },
     {
-        path: 'add',
+        path: 'projects/add',
         component: AddProject
     },
     {
-<<<<<<< Updated upstream
-        path: ':id/edit',
-        component: EditProject
-=======
+        canActivate: [activeProjectGuard],
         path: "project",
-        // canActivate: [activeProjectGuard],
         children: [
             {
                 path: ':id/edit',
@@ -37,6 +38,8 @@ export const projectsRoutes = [
                 component: Members
             }
         ]
->>>>>>> Stashed changes
+
     }
+
+
 ];

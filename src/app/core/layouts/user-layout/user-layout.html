@@ -3,13 +3,8 @@
 
   @if (isSideAppear()) {
     <div
-<<<<<<< Updated upstream
-      (click)="isSideAppear = false"
-      class="block sm:hidden backdrop-blur-[4px] bg-[#041B3C66] duration-200 transition-all fixed w-[100%] h-[100%] top-0 left-0 z-2"
-=======
       (click)="isSideAppear.set(false)"
       class="block lg:hidden backdrop-blur-[4px] bg-[#041B3C66] z-[10] duration-200 transition-all fixed w-[100%] h-[100%] top-0 left-0 z-2"
->>>>>>> Stashed changes
     ></div>
   }
 
@@ -41,9 +36,13 @@
       </div>
 
       <div class="flex-center gap-4 w-fit ml-auto">
-        <div class="flex flex-col gap-1 text-end">
-          <h2 class="neutral-900 text-[14px] font-semibold">{{ userName }}</h2>
-          <p class="text-primary text-[10px] font-bold tracking-[1px] uppercase">{{ userTitle }}</p>
+        <div class="hidden sm:block">
+          <div class="flex flex-col gap-1 text-end">
+            <h2 class="neutral-900 text-[14px] font-semibold">{{ userName }}</h2>
+            <p class="text-primary text-[10px] font-bold tracking-[1px] uppercase">
+              {{ userTitle }}
+            </p>
+          </div>
         </div>
         <div
           class="w-[40px] h-[40px] flex-center text-white rounded-[12px] bg-primary-container uppercase text-[16px] font-bold"
@@ -54,11 +53,8 @@
     </header>
 
     <!-- PAGE CONTENT -->
-<<<<<<< Updated upstream
-    <div class="p-6 pb-20 sm:pb-6 px-6 sm:px-8 min-h-[calc(100dvh-64px)] h-fit">
-=======
+
     <div class="py-4.5 pb-20 lg:pb-6 px-4 sm:px-8 min-h-[calc(100dvh-64px)] h-fit">
->>>>>>> Stashed changes
       <router-outlet></router-outlet>
     </div>
   </div>

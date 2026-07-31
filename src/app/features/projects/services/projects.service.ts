@@ -16,9 +16,9 @@ export class ProjectsService {
 
   headers = new HttpHeaders({
     'apikey': API.PUBLISHER_KEY,
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Prefer': 'count=exact'
   });
-
 
   createProject(createProjectRequest: ProjectRequest) {
     return this.http.post(API.BASE + API.CREATE_PROJECT, createProjectRequest, { headers: this.headers });
@@ -29,13 +29,15 @@ export class ProjectsService {
     return this.http.patch(API.BASE + API.UPDATE_PROJECT, updateProjectRequest, { headers: this.headers, params });
   }
 
-  getProjects() {
-    return this.http.get<Project[]>(API.BASE + API.GET_PROJECTS, { headers: this.headers });
+  getProjects(currentPage: number, limit: number) {
+    const params = new HttpParams()
+      .set('limit', limit.toString())
+      .set('offset', (currentPage - 1) * limit);
+
+    return this.http.get<Project[]>(API.BASE + API.GET_PROJECTS, { observe: 'response', headers: this.headers, params });
   }
 
-<<<<<<< Updated upstream
-}
-=======
+
 
   getProjectDetails(projectId: string) {
     const params = new HttpParams().set('id', 'eq.' + projectId);
@@ -60,4 +62,10 @@ export class ProjectsService {
       );
   }
 }
->>>>>>> Stashed changes
+
+
+  getProjectDetails(projectId: string) {
+    const params = new HttpParams().set('id', 'eq.' + projectId);
+    return this.http.get<Project[]>(API.BASE + API.GET_PROJECTS, { observe: 'response', headers: this.headers, params });
+  }
+}

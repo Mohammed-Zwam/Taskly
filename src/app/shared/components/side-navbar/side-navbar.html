@@ -1,9 +1,5 @@
 <nav
-<<<<<<< Updated upstream
-  class="p-4 overflow-hidden bg-[#F1F3FF] z-3 absolute translate-x-[-100%] sm:translate-x-0 sm:sticky left-0 top-0 h-[100dvh] flex flex-col gap-8 duration-300"
-=======
   class="p-4 overflow-hidden bg-[#F1F3FF] z-[15] fixed translate-x-[-100%] lg:translate-x-0 lg:sticky left-0 top-0 h-[100dvh] flex flex-col gap-8 duration-300"
->>>>>>> Stashed changes
   [ngClass]="{
     'w-[256px]': !isCollapsed,
     '!w-[256px] lg:!w-[80px]': isCollapsed,
@@ -28,20 +24,7 @@
 
   <div class="flex flex-col justify-between h-fit flex-2">
     <ul class="flex flex-col gap-1">
-<<<<<<< Updated upstream
-      @for (linkItem of navbarLinks; track $index) {
-        <li
-          routerLinkActive="!text-primary bg-white shadow-[0px_1px_2px_0px_#0000000D]"
-          class="text-neutral-900 rounded-[4px] w-full sm:w-full py-3 px-3.5 h-[48px] transition-all duration-200 overflow-hidden"
-          [ngClass]="{
-            'sm:!text-[#041B3C99]': isCollapsed,
-            'sm:!w-[48px]': isCollapsed,
-          }"
-        >
-          <a
-            class="flex items-center h-[100%] gap-3 text-inherit text-body-md font-medium"
-            routerLink="{{ linkItem.path }}"
-=======
+
       <li
         routerLinkActive="!text-primary bg-white shadow-[0px_1px_2px_0px_#0000000D]"
         class="text-neutral-900 rounded-[4px] w-full sm:w-full py-3 px-3.5 h-[48px] transition-all duration-200 overflow-hidden"
@@ -86,18 +69,14 @@
             }
           </span>
 
-          <span
-            class="whitespace-nowrap show transition-all duration-200"
-            [class.hide-lnk-txt]="isCollapsed"
->>>>>>> Stashed changes
-          >
-            <span class="w-[20px] h-fit" [innerHTML]="getIcon(linkItem.icon)"></span>
-
-<<<<<<< Updated upstream
-            <span
+                      <span
               class="whitespace-nowrap show transition-all duration-200"
-              [class.hide-lnk-txt]="isCollapsed"
-=======
+              [class.hide-lnk-txt]="isCollapsed">Projects</span>
+        </a>
+      </li>
+
+
+
       @if (this.projectContextService.getActiveProject() !== null) {
         @for (linkItem of navbarLinks(); track $index) {
           <li
@@ -110,10 +89,14 @@
             }"
             (click)="isSideAppear.set(false)"
           >
+           <span
+            class="whitespace-nowrap show transition-all duration-200"
+            [class.hide-lnk-txt]="isCollapsed"
+          >
+            <span class="w-[20px] h-fit" [innerHTML]="getIcon(linkItem.icon)"></span>
             <a
               class="flex items-center h-[100%] gap-3 text-inherit text-body-md font-medium"
               routerLink="{{ linkItem.path }}"
->>>>>>> Stashed changes
             >
               {{ linkItem.name }}
             </span>
