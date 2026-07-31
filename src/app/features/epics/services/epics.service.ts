@@ -25,6 +25,7 @@ export class EpicsService {
         return this.http.post(API.BASE + API.CREATE_PROJECT_EPIC, createProjectEpicRequest, { headers: this.headers });
     }
 
+
     getProjectEpics(projectId: string, currentPage: number, limit: number) {
         const params = new HttpParams()
             .set('project_id', 'eq.' + projectId)
@@ -54,4 +55,3 @@ export class EpicsService {
             );
     }
 }
-

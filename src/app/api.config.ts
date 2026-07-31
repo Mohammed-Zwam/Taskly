@@ -14,5 +14,4 @@ export const API = {
     GET_PROJECT_MEMBERS: '/rest/v1/get_project_members',
     CREATE_PROJECT_EPIC: '/rest/v1/epics',
     GET_PROJECT_EPICS: '/rest/v1/project_epics'
-    CREATE_PROJECT_EPIC: '/rest/v1/epics'
 };

@@ -41,5 +41,6 @@ export class ProjectsService {
     const params = new HttpParams().set('id', 'eq.' + projectId);
     return this.http.get<Project[]>(API.BASE + API.GET_PROJECTS, { headers: this.headers, params });
   }
+
 }
 

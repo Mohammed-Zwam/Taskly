@@ -7,7 +7,7 @@ import { ProjectsService } from '../../services/projects.service';
 import { Router, RouterLink } from '@angular/router';
 import { Project, ProjectRequest } from '../../model/projects.model';
 import { finalize } from 'rxjs';
-import { ProjectContextService } from '../../../../core/services/project-context.service';
+import { ProjectContextService } from '../../services/project-context.service';
 
 @Component({
   selector: 'app-project-form',

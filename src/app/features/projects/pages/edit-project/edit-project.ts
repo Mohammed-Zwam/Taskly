@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { NavList } from "../../../../shared/components/nav-list/nav-list";
 import { ProjectForm } from "../../components/project-form/project-form";
 import { ReactiveFormsModule } from '@angular/forms';
-import { ProjectContextService } from '../../../../core/services/project-context.service';
+import { ProjectContextService } from '../../services/project-context.service';
 
 
 @Component({

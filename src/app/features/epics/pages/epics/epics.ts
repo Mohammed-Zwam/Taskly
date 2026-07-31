@@ -106,7 +106,4 @@ export class Epics {
         }
       })
   }
-  limit = 8;
-  isPhoneView = signal<boolean>(false);
-  projectContextService = inject(ProjectContextService);
 }
