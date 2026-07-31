@@ -3,14 +3,15 @@ import { API } from '../../../api.config';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { map } from 'rxjs';
 import { getAvatar } from '../../../core/utils/helpers';
-import { ProjectMembersResponse } from '../../projects/model/projects.model';
+import { ProjectMembersResponse } from '../models/members.model';
 
 
 
 @Injectable({
   providedIn: 'root',
 })
-export class ProjectsService {
+
+export class MembersService {
 
   constructor(private http: HttpClient) { }
 
@@ -20,7 +21,7 @@ export class ProjectsService {
     'Prefer': 'count=exact'
   });
 
-  
+
   getProjectMembers(projectId: string) {
     const params = new HttpParams().set('project_id', 'eq.' + projectId);
     return this.http.get<ProjectMembersResponse[]>(API.BASE + API.GET_PROJECT_MEMBERS, { headers: this.headers, params })
@@ -28,6 +29,7 @@ export class ProjectsService {
         map((response: ProjectMembersResponse[]) => {
           return response.map((projectMember) => ({
             memberId: projectMember.member_id,
+            userId: projectMember.user_id,
             role: projectMember.role,
             department: projectMember.metadata.department,
             email: projectMember.metadata.email,

@@ -1,13 +1,13 @@
-import { MembersService } from './../../services/members.service';
+import { ErrorState } from '../../../../shared/components/error-state/error-state';
+import { getRandomColor } from '../../../../core/utils/helpers';
 import { Component, signal } from '@angular/core';
-
 import { NgClass } from '@angular/common';
+import { MembersService } from '../../services/members.service';
 import { NavList } from '../../../../shared/components/nav-list/nav-list';
 import { ErrorState } from '../../../../shared/components/error-state/error-state';
-
+import { PageState, ProjectMember } from '../../models/members.model';
+import { ProjectContextService } from '../../../../core/services/project-context.service';
 import { getRandomColor } from '../../../../core/utils/helpers';
-import { PageState, ProjectMember } from '../../../projects/model/projects.model';
-import { ProjectContextService } from '../../../projects/services/project-context.service';
 
 
 @Component({
