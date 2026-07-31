@@ -1,4 +1,4 @@
-import { ProjectContextService } from './../../features/projects/services/project-context.service';
+import { ProjectContextService } from '../services/project-context.service';
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { ToastService } from '../services/toast.service';

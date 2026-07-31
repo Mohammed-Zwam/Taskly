@@ -1,11 +1,13 @@
 import { Component, signal } from '@angular/core';
-import { PageState, ProjectMember } from '../../model/projects.model';
-import { ProjectsService } from '../../services/projects.service';
-import { ProjectContextService } from '../../services/project-context.service';
-import { ErrorState } from "../../../../shared/components/error-state/error-state";
-import { NavList } from "../../../../shared/components/nav-list/nav-list";
-import { getRandomColor } from '../../../../core/utils/helpers';
+
 import { NgClass } from '@angular/common';
+import { MembersService } from '../../services/members.service';
+import { NavList } from '../../../../shared/components/nav-list/nav-list';
+import { ErrorState } from '../../../../shared/components/error-state/error-state';
+import { PageState, ProjectMember } from '../../models/members.model';
+import { ProjectContextService } from '../../../../core/services/project-context.service';
+import { getRandomColor } from '../../../../core/utils/helpers';
+
 
 @Component({
   selector: 'app-members',
@@ -18,7 +20,7 @@ export class Members {
   projectMembers: ProjectMember[] = [];
 
   constructor(
-    private projectService: ProjectsService,
+    private membersService: MembersService,
     private projectContextService: ProjectContextService,
   ) { }
 
@@ -40,14 +42,13 @@ export class Members {
       }
     ]
   }
-
   navList: any[] = [];
 
 
   loadProjectMembers = () => {
     this.state.set('loading');
 
-    this.projectService.getProjectMembers(this.projectContextService.getActiveProjectId()).subscribe({
+    this.membersService.getProjectMembers(this.projectContextService.getActiveProjectId()).subscribe({
       next: (res) => {
         this.projectMembers = res.map(item => ({ ...item, avatarColor: getRandomColor() }));
         this.state.set('success');
