@@ -1,9 +1,62 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { PageState, ProjectMember } from '../../model/projects.model';
+import { ProjectsService } from '../../services/projects.service';
+import { ProjectContextService } from '../../services/project-context.service';
+import { ErrorState } from "../../../../shared/components/error-state/error-state";
+import { NavList } from "../../../../shared/components/nav-list/nav-list";
+import { getRandomColor } from '../../../../core/utils/helpers';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-members',
-  imports: [],
+  imports: [ErrorState, NavList, NgClass],
   templateUrl: './members.html',
-  styleUrl: './members.css',
 })
-export class Members {}
+export class Members {
+  state = signal<PageState>('loading');
+
+  projectMembers: ProjectMember[] = [];
+
+  constructor(
+    private projectService: ProjectsService,
+    private projectContextService: ProjectContextService,
+  ) { }
+
+  ngOnInit() {
+    this.loadProjectMembers();
+    const project = this.projectContextService.getActiveProject();
+    this.navList = [
+      {
+        label: 'projects',
+        link: '/projects',
+      },
+      {
+        label: project.name,
+        link: `/project/${project.id}/epics`,
+      },
+      {
+        label: 'members',
+        link: 'members',
+      }
+    ]
+  }
+
+  navList: any[] = [];
+
+
+  loadProjectMembers = () => {
+    this.state.set('loading');
+
+    this.projectService.getProjectMembers(this.projectContextService.getActiveProjectId()).subscribe({
+      next: (res) => {
+        this.projectMembers = res.map(item => ({ ...item, avatarColor: getRandomColor() }));
+        this.state.set('success');
+      },
+      error: () => {
+        this.state.set('error');
+
+      }
+    })
+  }
+
+}

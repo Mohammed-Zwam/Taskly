@@ -1,9 +1,9 @@
 <nav
-  class="p-4 overflow-hidden bg-[#F1F3FF] z-[15] absolute translate-x-[-100%] sm:translate-x-0 sm:sticky left-0 top-0 h-[100dvh] flex flex-col gap-8 duration-300"
+  class="p-4 overflow-hidden bg-[#F1F3FF] z-[15] fixed translate-x-[-100%] lg:translate-x-0 lg:sticky left-0 top-0 h-[100dvh] flex flex-col gap-8 duration-300"
   [ngClass]="{
-    'sm:w-[256px]': !isCollapsed,
-    'w-[256px] sm:w-[80px]': isCollapsed,
-    '!translate-x-0': isSideAppear,
+    'w-[256px]': !isCollapsed,
+    '!w-[256px] lg:!w-[80px]': isCollapsed,
+    '!translate-x-0': isSideAppear(),
   }"
 >
   <div class="logo flex-center w-fit gap-2 h-10 px-3">
@@ -26,11 +26,12 @@
     <ul class="flex flex-col gap-1">
       <li
         routerLinkActive="!text-primary bg-white shadow-[0px_1px_2px_0px_#0000000D]"
-        class="text-neutral-900 rounded-[4px] w-full sm:w-full py-3 px-3.5 h-[48px] transition-all duration-200 overflow-hidden"
+        class="text-neutral-900 rounded-[4px] w-full lg:w-full py-3 px-3.5 h-[48px] transition-all duration-200 overflow-hidden"
         [ngClass]="{
-          'sm:!text-[#041B3C99]': isCollapsed,
-          'sm:!w-[48px]': isCollapsed,
+          'lg:!text-[#041B3C99]': isCollapsed,
+          'lg:!w-[48px]': isCollapsed,
         }"
+        (click)="isSideAppear.set(false)"
       >
         <a
           class="flex items-center h-[100%] gap-3 text-inherit text-body-md font-medium"
@@ -80,11 +81,12 @@
           <li
             routerLinkActive="!text-primary bg-white shadow-[0px_1px_2px_0px_#0000000D]"
             [routerLinkActiveOptions]="{ exact: true }"
-            class="text-neutral-900 rounded-[4px] w-full sm:w-full py-3 px-3.5 h-[48px] transition-all duration-200 overflow-hidden"
+            class="text-neutral-900 rounded-[4px] w-full lg:w-full py-3 px-3.5 h-[48px] transition-all duration-200 overflow-hidden"
             [ngClass]="{
-              'sm:!text-[#041B3C99]': isCollapsed,
-              'sm:!w-[48px]': isCollapsed,
+              'lg:!text-[#041B3C99]': isCollapsed,
+              'lg:!w-[48px]': isCollapsed,
             }"
+            (click)="isSideAppear.set(false)"
           >
             <a
               class="flex items-center h-[100%] gap-3 text-inherit text-body-md font-medium"
@@ -105,7 +107,7 @@
     </ul>
 
     <div class="flex flex-col gap-1 border-t-1 border-[#C3C6D633] pt-8">
-      <div class="hidden sm:block">
+      <div class="hidden lg:block">
         <button
           class="w-fit flex-center rounded-[4px] gap-3 py-2.5 px-3 text-neutral-900 text-body-md font-medium overflow-hidden"
         >

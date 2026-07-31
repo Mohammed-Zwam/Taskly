@@ -1,10 +1,10 @@
 <div class="flex relative">
   <app-side-navbar [isSideAppear]="isSideAppear"></app-side-navbar>
 
-  @if (isSideAppear) {
+  @if (isSideAppear()) {
     <div
-      (click)="isSideAppear = false"
-      class="block sm:hidden backdrop-blur-[4px] bg-[#041B3C66] z-[10] duration-200 transition-all fixed w-[100%] h-[100%] top-0 left-0 z-2"
+      (click)="isSideAppear.set(false)"
+      class="block lg:hidden backdrop-blur-[4px] bg-[#041B3C66] z-[12] duration-200 transition-all fixed w-[100%] h-[100%] top-0 left-0"
     ></div>
   }
 
@@ -14,7 +14,7 @@
     <header
       class="h-[64px] px-6 py-3 border-b-1 border-[#0000001A] flex items-center justify-between sticky z-[10] top-0 bg-[#f1f3ff]"
     >
-      <div class="block sm:hidden">
+      <div class="block lg:hidden">
         <div class="flex-center gap-4">
           <svg
             width="18"
@@ -23,7 +23,7 @@
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             class="cursor-pointer"
-            (click)="isSideAppear = true"
+            (click)="isSideAppear.set(true)"
           >
             <path d="M0 12V10H18V12H0ZM0 7V5H18V7H0ZM0 2V0H18V2H0Z" fill="#041B3C" />
           </svg>
@@ -53,13 +53,14 @@
     </header>
 
     <!-- PAGE CONTENT -->
-    <div class="py-4.5 pb-20 sm:pb-6 px-6 sm:px-8 min-h-[calc(100dvh-64px)] h-fit">
+
+    <div class="py-4.5 pb-20 lg:pb-6 px-4 sm:px-8 min-h-[calc(100dvh-64px)] h-fit">
       <router-outlet></router-outlet>
     </div>
   </div>
 
   <!-- BOTTOM NAVBAR (MOBILE) -->
-  @if (!isSideAppear) {
+  @if (!isSideAppear()) {
     <app-bottom-navbar></app-bottom-navbar>
   }
 </div>

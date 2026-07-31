@@ -1,14 +1,14 @@
 import { NgClass } from '@angular/common';
-import { Component, computed, inject, Input } from '@angular/core';
+import { Component, computed, inject, Input, WritableSignal } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { Router, RouterLink, RouterLinkActive } from "@angular/router";
+import { Router, RouterLinkActive, RouterLinkWithHref } from "@angular/router";
 import { AuthService } from '../../../features/auth/services/auth.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { ProjectContextService } from '../../../features/projects/services/project-context.service';
 
 @Component({
   selector: 'app-side-navbar',
-  imports: [RouterLink, RouterLinkActive, NgClass],
+  imports: [RouterLinkActive, NgClass, RouterLinkWithHref],
   templateUrl: './side-navbar.html',
 })
 export class SideNavbar {
@@ -20,7 +20,7 @@ export class SideNavbar {
   ) { }
   projectContextService = inject(ProjectContextService);
   isCollapsed = false;
-  @Input() isSideAppear !: boolean;
+  @Input() isSideAppear !: WritableSignal<boolean>;
 
 
   readonly navbarLinks = computed(() => {

@@ -64,7 +64,7 @@
   }
 
   .btn-primary {
-    @apply rounded-[4px] h-[48px] px-5 flex items-center justify-center gap-3 text-white cursor-pointer  transition-all duration-300;
+    @apply rounded-[4px] h-[45px] px-4 flex items-center justify-center gap-3 text-white cursor-pointer  transition-all duration-300;
     background: linear-gradient(135deg, #003d9b 0%, #0052cc 100%);
   }
   .btn-primary:hover {
@@ -142,7 +142,7 @@ select:-webkit-autofill {
   pointer-events: none !important;
 }
 
-@media (width < 640px) {
+@media (width < 1024px ) {
   .hide-lnk-txt {
     opacity: 1 !important;
     cursor: pointer;

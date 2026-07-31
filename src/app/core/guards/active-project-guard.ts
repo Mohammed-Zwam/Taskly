@@ -9,7 +9,6 @@ export const activeProjectGuard: CanActivateFn = (route, state) => {
     const projectContextService = inject(ProjectContextService);
 
 
-    console.log(projectContextService.getActiveProject())
     if (projectContextService.getActiveProject() === null) {
         toastService.show("warning", "Access Denied", "Please select a project first.");
         return router.createUrlTree(['/projects']);

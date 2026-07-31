@@ -2,7 +2,7 @@ import { ProjectContextService } from './../../services/project-context.service'
 import { ProjectsService } from './../../services/projects.service';
 import { Component, effect, HostListener, signal } from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
-import { Project, ProjectsState } from '../../model/projects.model';
+import { PageState, Project } from '../../model/projects.model';
 import { DatePipe } from '@angular/common';
 import { Pagination } from "../../../../shared/components/pagination/pagination";
 import { BtnLoading } from "../../../../shared/components/btn-loading/btn-loading";
@@ -15,7 +15,7 @@ import { ErrorState } from "../../../../shared/components/error-state/error-stat
 })
 export class Projects {
   projects: Project[] | null = [];
-  state = signal<ProjectsState>('loading');
+  state = signal<PageState>('loading');
   currentPage = signal<number>(1);
   totalProjectsCount = signal<number>(0);
   limit = 5;

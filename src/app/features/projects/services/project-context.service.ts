@@ -7,8 +7,8 @@ import { Project } from '../model/projects.model';
 export class ProjectContextService {
   private activeProject = signal<Project | null>(null);
 
-  getActiveProjectId() {
-    return this.activeProject()?.id;
+  getActiveProjectId(): string {
+    return this.activeProject()?.id || '';
   }
 
   setActiveProjectId(projectId: string) {

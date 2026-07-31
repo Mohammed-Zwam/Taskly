@@ -12,4 +12,26 @@ export type Project = {
     description: string;
 }
 
-export type ProjectsState = 'loading' | 'success' | 'empty' | 'error';
+
+export type ProjectMembersResponse = {
+    member_id: string;
+    user_id: string;
+    role: string;
+    metadata: {
+        department: string;
+        email: string;
+        name: string;
+    }
+}
+
+export type ProjectMember = {
+    memberId: string;
+    role: string;
+    department: string;
+    email: string;
+    name: string;
+    avatar: string;
+    avatarColor: string;
+}
+
+export type PageState = 'loading' | 'success' | 'empty' | 'error';

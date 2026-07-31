@@ -18,8 +18,8 @@ export const projectsRoutes = [
         component: AddProject
     },
     {
-        path: "project",
         canActivate: [activeProjectGuard],
+        path: "project",
         children: [
             {
                 path: ':id/edit',
@@ -38,6 +38,7 @@ export const projectsRoutes = [
                 component: Members
             }
         ]
+
     }
 
 
