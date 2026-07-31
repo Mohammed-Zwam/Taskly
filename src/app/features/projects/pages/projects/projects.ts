@@ -18,8 +18,8 @@ export class Projects {
   state = signal<PageState>('loading');
   currentPage = signal<number>(1);
   totalProjectsCount = signal<number>(0);
-  limit = 5;
   isPhoneView = signal<boolean>(false);
+  limit = 8;
 
 
   constructor(
