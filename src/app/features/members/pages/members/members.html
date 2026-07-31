@@ -1,5 +1,5 @@
 @if (state() === 'loading') {
-  <div class="flex flex-col gap-8">
+  <div class="flex flex-col gap-12">
     <div class="flex flex-col gap-3">
       <div class="hidden md:block">
         <div class="flex-center gap-1.5 w-fit">
@@ -64,13 +64,13 @@
 } @else if (state() === 'error') {
   <app-error-state [takeAction]="loadProjectMembers"></app-error-state>
 } @else {
-  <div class="flex flex-col gap-5">
+  <div class="flex flex-col gap-8 md:gap-12">
     <!-- Page Header -->
     <div class="flex flex-col gap-3">
       <div class="hidden sm:block">
         <app-nav-list [navItems]="navList"></app-nav-list>
       </div>
-      <div class="flex items-center justify-between">
+      <div class="flex items-center justify-center sm:justify-between">
         <h1 class="text-neutral-900 text-[25px] font-semibold">Projects Members</h1>
         <button
           class="fixed bottom-[80px] right-[20px] z-5 md:top-0 md:right-0 md:relative btn btn-primary"
@@ -165,4 +165,3 @@
     </div>
   </div>
 }
-

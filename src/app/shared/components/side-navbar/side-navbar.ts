@@ -4,7 +4,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router, RouterLinkActive, RouterLinkWithHref } from "@angular/router";
 import { AuthService } from '../../../features/auth/services/auth.service';
 import { ToastService } from '../../../core/services/toast.service';
-import { ProjectContextService } from '../../../features/projects/services/project-context.service';
+import { ProjectContextService } from '../../../core/services/project-context.service';
 
 @Component({
   selector: 'app-side-navbar',
