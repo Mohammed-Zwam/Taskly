@@ -27,6 +27,6 @@ export class UserLayout {
 
   @HostListener('window:resize')
   onResize() {
-    if (window.innerWidth >= 640) this.isSideAppear.set(false);
+    if (window.innerWidth >= 1024) this.isSideAppear.set(false);
   }
 }

@@ -24,17 +24,16 @@
 
   <div class="flex flex-col justify-between h-fit flex-2">
     <ul class="flex flex-col gap-1">
-
       <li
         routerLinkActive="!text-primary bg-white shadow-[0px_1px_2px_0px_#0000000D]"
-        class="text-neutral-900 rounded-[4px] w-full sm:w-full py-3 px-3.5 h-[48px] transition-all duration-200 overflow-hidden"
+        class="text-neutral-900 rounded-[4px] w-full lg:w-full py-3 px-3.5 h-[48px] transition-all duration-200 overflow-hidden"
         [ngClass]="{
-          'sm:!text-[#041B3C99]': isCollapsed,
-          'sm:!w-[48px]': isCollapsed,
+          'lg:!text-[#041B3C99]': isCollapsed,
+          'lg:!w-[48px]': isCollapsed,
         }"
         (click)="isSideAppear.set(false)"
       >
-        
+        <a
           class="flex items-center h-[100%] gap-3 text-inherit text-body-md font-medium"
           routerLink="/projects"
         >
@@ -48,9 +47,8 @@
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  class="text-inherit"
                   d="M0 8V0H8V8H0ZM0 18V10H8V18H0ZM10 8V0H18V8H10ZM10 18V10H18V18H10Z"
-                  fill="currentColor"
+                  fill="#0052CC"
                 />
               </svg>
             } @else {
@@ -83,16 +81,16 @@
           <li
             routerLinkActive="!text-primary bg-white shadow-[0px_1px_2px_0px_#0000000D]"
             [routerLinkActiveOptions]="{ exact: true }"
-            class="text-neutral-900 rounded-[4px] w-full sm:w-full py-3 px-3.5 h-[48px] transition-all duration-200 overflow-hidden"
+            class="text-neutral-900 rounded-[4px] w-full lg:w-full py-3 px-3.5 h-[48px] transition-all duration-200 overflow-hidden"
             [ngClass]="{
-              'sm:!text-[#041B3C99]': isCollapsed,
-              'sm:!w-[48px]': isCollapsed,
+              'lg:!text-[#041B3C99]': isCollapsed,
+              'lg:!w-[48px]': isCollapsed,
             }"
             (click)="isSideAppear.set(false)"
           >
-            
+            <a
               class="flex items-center h-[100%] gap-3 text-inherit text-body-md font-medium"
-              [routerLink]="linkItem.path"
+              routerLink="{{ linkItem.path }}"
             >
               <span class="w-[20px] h-fit" [innerHTML]="getIcon(linkItem.icon)"></span>
 
@@ -109,7 +107,7 @@
     </ul>
 
     <div class="flex flex-col gap-1 border-t-1 border-[#C3C6D633] pt-8">
-      <div class="hidden sm:block">
+      <div class="hidden lg:block">
         <button
           class="w-fit flex-center rounded-[4px] gap-3 py-2.5 px-3 text-neutral-900 text-body-md font-medium overflow-hidden"
         >

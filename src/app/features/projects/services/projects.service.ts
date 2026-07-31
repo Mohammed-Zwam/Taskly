@@ -63,9 +63,3 @@ export class ProjectsService {
   }
 }
 
-
-  getProjectDetails(projectId: string) {
-    const params = new HttpParams().set('id', 'eq.' + projectId);
-    return this.http.get<Project[]>(API.BASE + API.GET_PROJECTS, { observe: 'response', headers: this.headers, params });
-  }
-}
