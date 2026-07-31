@@ -34,7 +34,7 @@
         }"
         (click)="isSideAppear.set(false)"
       >
-        <a
+        
           class="flex items-center h-[100%] gap-3 text-inherit text-body-md font-medium"
           routerLink="/projects"
         >
@@ -69,13 +69,14 @@
             }
           </span>
 
-                      <span
-              class="whitespace-nowrap show transition-all duration-200"
-              [class.hide-lnk-txt]="isCollapsed">Projects</span>
+          <span
+            class="whitespace-nowrap show transition-all duration-200"
+            [class.hide-lnk-txt]="isCollapsed"
+          >
+            Projects
+          </span>
         </a>
       </li>
-
-
 
       @if (this.projectContextService.getActiveProject() !== null) {
         @for (linkItem of navbarLinks(); track $index) {
@@ -89,19 +90,21 @@
             }"
             (click)="isSideAppear.set(false)"
           >
-           <span
-            class="whitespace-nowrap show transition-all duration-200"
-            [class.hide-lnk-txt]="isCollapsed"
-          >
-            <span class="w-[20px] h-fit" [innerHTML]="getIcon(linkItem.icon)"></span>
-            <a
+            
               class="flex items-center h-[100%] gap-3 text-inherit text-body-md font-medium"
-              routerLink="{{ linkItem.path }}"
+              [routerLink]="linkItem.path"
             >
-              {{ linkItem.name }}
-            </span>
-          </a>
-        </li>
+              <span class="w-[20px] h-fit" [innerHTML]="getIcon(linkItem.icon)"></span>
+
+              <span
+                class="whitespace-nowrap show transition-all duration-200"
+                [class.hide-lnk-txt]="isCollapsed"
+              >
+                {{ linkItem.name }}
+              </span>
+            </a>
+          </li>
+        }
       }
     </ul>
 
