@@ -37,7 +37,7 @@ export function passwordMatchValidator(form: AbstractControl) {
 
 export function getAvatar(name: string): string {
     const userNames = name.split(' ');
-    return userNames[0][0] + userNames[1][0];
+    return (userNames[0]?.charAt(0) || '') + (userNames[1]?.charAt(0) || '');
 }
 
 
