@@ -1,3 +1,4 @@
+import { ProjectEpicRequest } from './../../models/epics.model';
 import { Component, inject, Input, signal } from '@angular/core';
 import { EpicsService } from '../../services/epics.service';
 import { finalize } from 'rxjs';
@@ -10,6 +11,7 @@ import { MembersService } from '../../../members/services/members.service';
 import { getAvatar } from '../../../../core/utils/helpers';
 import { MemberOption } from '../../../members/models/members.model';
 import { ElementRef, ViewChild } from '@angular/core';
+import { ToastService } from '../../../../core/services/toast.service';
 
 @Component({
   selector: 'app-epic-details-popup',
@@ -21,6 +23,7 @@ export class EpicDetailsPopup {
   @Input() projectId!: string;
   @Input() epicId!: string;
   @Input() close!: () => void;
+  @Input() loadProjectEpics!: () => void;
   _epicsService = inject(EpicsService);
   _membersService = inject(MembersService);
   epic!: ProjectEpic;
@@ -31,7 +34,7 @@ export class EpicDetailsPopup {
   deadline = new FormControl<string>('', [isDeadlineValid]);
   projectMembersOptions = signal<{ value: string, label: string, avatar: string }[]>([]);
   isAssigneeDropdownOpen = signal(false);
-
+  _toastService = inject(ToastService);
   @ViewChild('deadlinePicker')
   deadlineCalender!: ElementRef<HTMLInputElement>;
 
@@ -61,6 +64,38 @@ export class EpicDetailsPopup {
   }
 
 
+  closePopup() {
+    const updateProjectEpic: ProjectEpicRequest = {};
+
+    if (this.title.value != this.epic.title) {
+      updateProjectEpic.title = this.title.value || '';
+    }
+
+    if (this.description.value != this.epic.description) {
+      updateProjectEpic.description = this.description.value || '';
+    }
+
+    if (this.selectedProjectMember()?.value != this.epic.assigneeId) {
+      updateProjectEpic.assignee_id = this.selectedProjectMember()?.value;
+    }
+    if (this.deadline.value != this.epic.deadline) {
+      updateProjectEpic.deadline = this.deadline.value || '';
+    }
+
+    if (Object.keys(updateProjectEpic).length != 0) {
+      this._epicsService.updateProjectEpic(this.epicId, updateProjectEpic).subscribe({
+        next: () => {
+          this._toastService.show("success", "Epic updated successfully", "");
+          this.loadProjectEpics();
+        },
+        error: () => {
+          this._toastService.show("error", "Failed to update epic", "");
+        }
+      })
+    }
+
+    this.close();
+  }
 
   fetchEpicItemDetails() {
     this._epicsService.getProjectEpicDetails(this.projectId, this.epicId)
@@ -81,4 +116,6 @@ export class EpicDetailsPopup {
       })
 
   }
+
+
 }

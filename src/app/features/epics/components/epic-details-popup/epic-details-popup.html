@@ -1,5 +1,5 @@
 <div class="popup-container">
-  <div class="overlay" (click)="close()"></div>
+  <div class="overlay" (click)="closePopup()"></div>
   <!-- Epic Details Popup -->
   @if (isLoading()) {
     <div class="popup">
@@ -126,7 +126,7 @@
 
           <!-- Close Icon -->
           <svg
-            (click)="close()"
+            (click)="closePopup()"
             width="14"
             height="14"
             viewBox="0 0 14 14"
@@ -143,11 +143,11 @@
       </div>
 
       <!-- Epic Title -->
-      <div>
+      <div class="mb-4">
         <input
           [class.inp-normal]="title.valid || !title.touched || !title.dirty"
           [class.inp-error]="title.invalid && title.touched && title.dirty"
-          class="mt-4 font-bold mb-4 text-[20px] border-1 border-surface-highest p-3 rounded-[12px] !bg-transparent"
+          class="mt-4 mb-1.5 font-bold text-[20px] border-1 border-surface-highest p-3 rounded-[12px] !bg-transparent"
           placeholder="Enter epic title"
           name="title"
           [formControl]="title"
@@ -167,7 +167,6 @@
       </div>
 
       <div class="flex flex-col pt-4 gap-8 border-t-1 border-t-[#C3C6D626]">
-
         <div>
           <textarea
             [class.inp-normal]="description.valid || !description.touched || !description.dirty"

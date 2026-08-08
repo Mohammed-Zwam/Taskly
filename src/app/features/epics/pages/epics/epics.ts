@@ -1,7 +1,7 @@
 import { Component, effect, HostListener, inject, signal } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { PageState } from '../../../projects/model/projects.model';
-import { ProjectEpic } from '../../models/epics.model';
+import { ProjectEpic, ProjectEpicRequest } from '../../models/epics.model';
 import { EpicsService } from '../../services/epics.service';
 import { ErrorState } from "../../../../shared/components/error-state/error-state";
 import { Pagination } from "../../../../shared/components/pagination/pagination";
@@ -87,7 +87,6 @@ export class Epics {
       this.isPhoneView.set(false);
     }
   }
-
 
 
   showEpicDetailsPopup(epicItemId: string) {

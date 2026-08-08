@@ -62,6 +62,12 @@ export class EpicsService {
             )
     }
 
+    updateProjectEpic(epicId: string, updateProjectEpicRequest: ProjectEpicRequest) {
+        const params = new HttpParams()
+            .set("id", "eq." + epicId);
+
+        return this.http.patch(API.BASE + API.UPDATE_PROJECT_EPIC, updateProjectEpicRequest, { headers: this.headers, params });
+    }
 
     private toProjectEpic(response: ProjectEpicResponse): ProjectEpic {
         return {

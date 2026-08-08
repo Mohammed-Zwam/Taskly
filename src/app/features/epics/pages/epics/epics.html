@@ -412,5 +412,6 @@
     [epicId]="clickedEpicItemId()"
     [projectId]="projectContextService.getActiveProjectId()"
     [close]="() => this.isEpicDetailsPopupVisible.set(false)"
+    [loadProjectEpics]="loadProjectEpics"
   ></app-epic-details-popup>
 }
