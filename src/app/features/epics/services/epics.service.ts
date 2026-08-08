@@ -38,20 +38,44 @@ export class EpicsService {
                 map(
                     (response): { epics: ProjectEpic[], total: number } => {
                         const epics: ProjectEpic[] = response.body?.map((item: ProjectEpicResponse): ProjectEpic => {
-                            return ({
-                                epicId: item.epic_id,
-                                title: item.title,
-                                assigneeName: item.assignee.name,
-                                assigneeAvatar: getAvatar(item.assignee.name),
-                                createdBy: item.created_by.name,
-                                createdAt: item.created_at
-
-                            })
+                            return this.toProjectEpic(item);
                         }) || [];
 
                         return { epics, total: Number(response.headers.get('Content-Range')?.split('/')[1]) };
                     }
                 )
             );
+    }
+
+
+
+    getProjectEpicDetails(projectId: string, epicId: string) {
+        const params = new HttpParams()
+            .set("project_id", "eq." + projectId)
+            .set("id", "eq." + epicId);
+
+        return this.http.get<ProjectEpicResponse[]>(API.BASE + API.GET_PROJECT_EPICS, { headers: this.headers, params })
+            .pipe(
+                map((response: ProjectEpicResponse[]): ProjectEpic => {
+                    return this.toProjectEpic(response[0]);
+                })
+            )
+    }
+
+
+    private toProjectEpic(response: ProjectEpicResponse): ProjectEpic {
+        return {
+            id: response.id,
+            epicId: response.epic_id,
+            description: response.description,
+            title: response.title,
+            assigneeName: response.assignee.name,
+            assigneeId: response.assignee.sub,
+            assigneeAvatar: getAvatar(response.assignee.name),
+            createdBy: response.created_by.name,
+            createdByAvatar: getAvatar(response.created_by.name),
+            deadline: response.deadline,
+            createdAt: response.created_at
+        }
     }
 }

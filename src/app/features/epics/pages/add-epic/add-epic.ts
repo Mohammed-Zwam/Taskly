@@ -10,6 +10,7 @@ import { ProjectEpicRequest } from '../../models/epics.model';
 import { finalize } from 'rxjs';
 import { MembersService } from '../../../members/services/members.service';
 import { ProjectContextService } from '../../../projects/services/project-context.service';
+import { isAssignedIdValid, isDeadlineValid } from '../../validators';
 
 @Component({
   selector: 'app-add-epic',
@@ -21,8 +22,8 @@ export class AddEpic {
   isLoading = signal<boolean>(false);
   title = new FormControl('', [Validators.required, Validators.minLength(3)]);
   description = new FormControl('', [Validators.maxLength(500)]);
-  assigneeId = new FormControl<string | null>(null, [this.isAssignedIdValid]);
-  deadline = new FormControl<Date | null>(null, [this.isDeadlineValid]);
+  assigneeId = new FormControl<string | null>(null, [isAssignedIdValid]);
+  deadline = new FormControl<Date | null>(null, [isDeadlineValid]);
   addEpicFormData = new FormGroup({
     title: this.title,
     description: this.description,
@@ -31,47 +32,20 @@ export class AddEpic {
   });
   projectMembersOptions = signal<{ value: string, label: string }[]>([]);
 
+  membersService = inject(MembersService);
   projectContextService = inject(ProjectContextService);
   toastService = inject(ToastService);
-  membersService = inject(MembersService);
   epicsService = inject(EpicsService);
   router = inject(Router);
 
 
-
-  isAssignedIdValid(control: AbstractControl) {
-    if (control.value === 'null' || control.value === null) return { required: true }
-    return null;
-  }
-
-  isDeadlineValid(control: AbstractControl) {
-    if (control.value === null) return { required: true }
-
-    const deadline = new Date(control.value);
-
-    deadline.setHours(0, 0, 0, 0);
-
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    if (deadline < today) {
-      return { pastDate: true };
-    }
-
-    const maxDate = new Date(today);
-    maxDate.setMonth(maxDate.getMonth() + 2);
-
-    if (deadline > maxDate) {
-      return { maxDate: true }
-    };
-
-    return null;
-  }
-
-
   ngOnInit() {
-    const project = this.projectContextService.getActiveProject();
     this.loadProjectMembers();
+    this.initNavList();
+  }
+
+  initNavList() {
+    const project = this.projectContextService.getActiveProject();
     this.navList = [
       {
         label: 'projects',
@@ -91,8 +65,6 @@ export class AddEpic {
       }
     ]
   }
-
-
 
   loadProjectMembers = () => {
     this.membersService.getProjectMembers(this.projectContextService.getActiveProjectId()).subscribe({

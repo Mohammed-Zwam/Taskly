@@ -20,4 +20,10 @@ export type ProjectMember = {
     userId: string;
 }
 
+
+export type MemberOption = {
+    value: string;
+    label: string;
+    avatar: string;
+}
 export type PageState = 'loading' | 'success' | 'empty' | 'error';

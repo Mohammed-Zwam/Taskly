@@ -9,10 +9,11 @@ import { BtnLoading } from "../../../../shared/components/btn-loading/btn-loadin
 import { DatePipe } from '@angular/common';
 import { NavList } from "../../../../shared/components/nav-list/nav-list";
 import { ProjectContextService } from '../../../projects/services/project-context.service';
+import { EpicDetailsPopup } from "../../components/epic-details-popup/epic-details-popup";
 
 @Component({
   selector: 'app-epics',
-  imports: [RouterLink, ErrorState, Pagination, BtnLoading, DatePipe, NavList],
+  imports: [RouterLink, ErrorState, Pagination, BtnLoading, DatePipe, NavList, EpicDetailsPopup],
   templateUrl: './epics.html',
 })
 export class Epics {
@@ -24,7 +25,9 @@ export class Epics {
   isPhoneView = signal<boolean>(false);
   projectContextService = inject(ProjectContextService);
   epicsService = inject(EpicsService);
-
+  isEpicDetailsPopupVisible = signal(false);
+  clickedEpicItemId = signal('');
+  navList: any[] = [];
 
   constructor() {
     effect(() => {
@@ -36,7 +39,10 @@ export class Epics {
     this.onWindowResize();
     this.onWindowResize();
     this.loadProjectEpics();
+    this.initNavList();
+  }
 
+  initNavList() {
     const project = this.projectContextService.getActiveProject();
     this.navList = [
       {
@@ -53,8 +59,6 @@ export class Epics {
       }
     ]
   }
-
-
 
 
   @HostListener('window:scroll')
@@ -86,8 +90,11 @@ export class Epics {
 
 
 
-  navList: any[] = [];
-
+  showEpicDetailsPopup(epicItemId: string) {
+    console.log(epicItemId);
+    this.clickedEpicItemId.set(epicItemId);
+    this.isEpicDetailsPopupVisible.set(true);
+  }
 
 
   loadProjectEpics = () => {

@@ -105,7 +105,6 @@ export class SignUp {
           this.router.navigate(['/projects']);
         },
         error: (res) => {
-          console.log(res)
           this.toastService.show('error', 'Account Creation Failed', res.error.msg);
         }
       })

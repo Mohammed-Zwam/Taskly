@@ -75,6 +75,17 @@
     @apply animate-pulse rounded-[4px] bg-[#cfd4e6];
   }
 
+  .popup-container {
+    @apply flex items-center justify-center fixed z-[11000] top-0 left-0 w-[100%] h-[100%];
+  }
+
+  .overlay {
+    @apply z-[-1] absolute w-[100%] h-[100%] bg-[#041B3C33] backdrop-blur-[4px];
+  }
+
+  .popup {
+    @apply mx-4 bg-white overflow-auto p-6 shadow-xl shadow-main w-[800px] rounded-[8px] max-h-[95vh];
+  }
   .btn-secondary {
     @apply text-btn;
   }
@@ -142,7 +153,7 @@ select:-webkit-autofill {
   pointer-events: none !important;
 }
 
-@media (width < 1024px ) {
+@media (width < 1024px) {
   .hide-lnk-txt {
     opacity: 1 !important;
     cursor: pointer;

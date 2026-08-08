@@ -13,6 +13,7 @@ export type ProjectEpicResponse = {
     title: string;
     description: string;
     created_at: string;
+    deadline: string;
     created_by: {
         sub: string;
         name: string;
@@ -28,6 +29,11 @@ export type ProjectEpicResponse = {
 }
 
 export type ProjectEpic = {
+    id: string;
+    assigneeId: string;
+    description: string;
+    createdByAvatar: string;
+    deadline: string;
     epicId: string;
     title: string;
     assigneeName: string;
